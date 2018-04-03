@@ -1,71 +1,68 @@
 <!DOCTYPE html>
-<head>
-    <title>Book Mart</title>
-    </head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<html>
+    <head>
+        <title>Book Mart</title>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body{            
-            
-            background-repeat: no-repeat;
-            background-size: cover; 
-        }
-        #txt{
-            color: white;
-        }
-        .container-fluid{
-            height: 250px;
-            background-image: url('title1.jpg');
-            background-size: cover;
-            background-position: bottom;
-            text-indent: 15%
-        }
-        #navb{
-            height: 
-            
-        }
-    </style>
-</head>
-<body >
-    
-    <div class="container-fluid"  >
-        <br><br><br><br><br><br>
-        <b>        <h1 style="font-family: Arial Black">BOOKMART</h1> </b>
-        <p>The biggest online book store!</p> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <style>
+            body{               
+                background-repeat: no-repeat;
+                background-size: cover; 
+            }
+            .txt{
+                font-family: Calibri Black;
+                text-indent:15%;
+            }
+            .container-fluid{
+                background-size: cover;
+                background-position: bottom;
+            }
+
+            .bgimg{
+                background-image: url('title1.jpg');
+                height: 250px;
+            }       
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body >    
+        <div class="container-fluid bgimg"  >
+            <br><br><br><br><br><br>
+            <b><h1 class="txt">BOOKMART</h1> </b>
+            <p class="txt btn">The biggest online book store!</p> 
         
         
-<nav id="navb" class="navbar navbar-inverse" >
-        <div class="container-fluid">
-        <span class="text-danger">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">BookMart</a>
-            </div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Page 1-1</a></li>
-                <li><a href="#">Page 1-2</a></li>
-                <li><a href="#">Page 1-3</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Page 2</a></li>
-            <li><a href="#">Page 3</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-          </ul>
-        </span>
+            <nav id="navb" class="navbar navbar-inverse" >
+                <div class="container-fluid">
+                    <span class="text-danger">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">BookMart</a>
+                        </div>
+                        <ul class="nav navbar-nav" style="text-indent:0%">
+                            <li class=""><a href="#">Home</a></li>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Page 1-1</a></li>
+                                <li><a href="#">Page 1-2</a></li>
+                                <li><a href="#">Page 1-3</a></li>
+                            </ul>
+                            </li>
+                            <li><a href="#">Page 2</a></li>
+                            <li><a href="#">Page 3</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        </ul>
+                    </span>
+                </div>
+            </nav>        
         </div>
-      </nav>
-        
-    </div>
-    <div class="container">
-        <h1>My Page</h1>
-        <p>ssup</p> 
-        
-    </div>
-    <p id="txt">Heyy!Ssup!!</p><br>
-</body>
+        <div class="container">
+            <h1>My Page</h1>
+            <p>ssup</p>         
+        </div>
+    </body>
 </html>
