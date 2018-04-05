@@ -23,6 +23,33 @@
             .bgimg{
                 background-image: url('title1.jpg');
                 height: 250px;
+            } 
+            .title{
+                font-size:18px;
+            }     
+            .det{
+                font-size:14px;
+            } 
+            .tag{
+                background-color:rgb(216, 216, 216);
+                padding:2px;
+                border-radius:3px;
+            }
+            .row{
+                border: 1px solid rgb(146, 146, 146);
+                border-radius: 3px;
+                margin: 5px;
+            }
+            al{
+                width:100%;
+                /* padding:4%; */
+                /* height:100%; */
+                display:flex;
+                align-self:center;
+            }
+            img{
+                width:100%;
+                height:100% ;
             }  
             .modal a.close-modal {
                 display: none;
@@ -115,22 +142,82 @@
                         </ul>
                     </span>
                 </div>
-            </nav>       
-        </div>
+            </nav>
 
-        <div class="modal login_cont" id="ex1" style="display:none;">
-            <div class="form">
-                <h1>Login</h1>
-                <br><br><br>
-                <form id="myForm" role="form" action="{% url 'index' %}" method="post" enctype="multipart/form-data">
-                    Username <br>
-                    <input class="namebox" type="text" id="email" name="username"><br>
-                    Password <br>
-                    <input class="passbox" type="password" id="pwd" name="password">
-                    <br><br><br><br><br>
-                    <input type="button" value="Login" onclick="myFunction()" class="log">
+
+            <div class="container-fluid">
+                <h3>Catalogue : </h3>
+                <div class="row ">
+                    <div class="col-sm-2">
+                        <span><img style="width:100%;" src = "http://wednesdaysheroes.com/wp-content/uploads/2016/07/davinci_code_closeup.jpg"></span>
+                    </div>
+                    <div class="col-sm-10">
+                        <p class="title">The Da Vinci Code</p>
+                        <p class="det">Dan Brown</p>
+                        <p class="det"><span class="tag">Thriller</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <span><img class="img-responsive" style="width:100%;" src = "https://images-na.ssl-images-amazon.com/images/I/51%2BAGDK79fL._SX331_BO1,204,203,200_.jpg"></span>
+                    </div>
+                    <div class="col-sm-10">
+                        <p class="title">Paper Towns</p>
+                        <p class="det">John Green</p>
+                        <p class="det"><span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-sm-2">
+                        <span><img style="width:100%;" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAHCxI5rj3TmgHq1EZcVi3ZoqfoYRslPnb1Qdo1TPcVpoo4i1KUw"></span>
+                    </div>
+                    <div class="col-sm-10">
+                        <p class="title">Tom Sawyer</p>
+                        <p class="det">Mark Twain</p>
+                        <p class="det"><span class="tag">Adventure</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-sm-2">
+                        <span><img style="width:100%;" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSai-PCeFDpCDt_W0LLPjtrvQcO05YEQ08QCc7maqp65gE4xLAM"></span>
+                    </div>
+                    <div class="col-sm-10">
+                        <p class="title">Lord of the Flies</p>
+                        <p class="det">William Golding</p>
+                        <p class="det"><span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-sm-2">
+                        <span><img style="width:100%;" src = "https://images.gr-assets.com/books/1348747943l/14497.jpg"></span>
+                    </div>
+                    <div class="col-sm-10">
+                        <p class="title">Neverwhere</p>
+                        <p class="det">Neil Gaiman</p>
+                        <p class="det"><span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>
+                    </div>
+                </div>
+            </div>    
+            
+
+            <div class="modal login_cont" id="ex1" style="display:none;">
+                <div class="form">
+                    <h1>Login</h1>
                     <br><br><br>
-                </form>
+                    <form id="myForm" role="form" action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+                        Username <br>
+                        <input class="namebox" type="text" id="email" name="username"><br>
+                        Password <br>
+                        <input class="passbox" type="password" id="pwd" name="password">
+                        <br><br><br><br><br>
+                        <input type="button" value="Login" onclick="myFunction()" class="log">
+                        <br><br><br>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="container">
