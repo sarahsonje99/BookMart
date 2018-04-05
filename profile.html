@@ -5,7 +5,8 @@
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <style>
             body{               
                 background-repeat: no-repeat;
@@ -23,39 +24,17 @@
             .bgimg{
                 background-image: url('title1.jpg');
                 height: 250px;
-            }  
-            .modal a.close-modal {
-                display: none;
-                position: absolute;
-                top: 3px;
-                right: 3px;
-                display: block;
-                width: 30px;
-                height: 30px;
-                text-indent: -9999px;
+            } 
+            .checked {
+                color: orange;
             }
-            .modal {
-                display: inline-block;
-                vertical-align: middle;
-                position: relative;
-                z-index: 2;
-                max-width: 500px;
-                box-sizing: border-box;
-                width: 90%;
-                background: #fff;
-                padding: 15px 30px;
+            
+            #points{
+                width: 135px;
+                padding: 8px;
                 border-radius: 10px;
-                box-shadow: 0 0 10px #000;
-                text-align: left;
-            }
-            .log{
-                height: 2.5em;
-                width: 5em;
-                -webkit-transition:all 0.3s ease;
-                transition:all 0.3s ease;
-                background: none;
-                border: solid 1px black;
-                color: black;
+                border: 1px solid gray;
+                margin: 0; 
             }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -65,14 +44,6 @@
         
 
         <script>
-        $(document).ready(function () {
-            $('a.open-modal').click(function (event) {
-                $(this).modal({
-                    fadeDuration: 250
-                });
-                return false;
-            });
-        });
         </script>
     </head>
     <body >    
@@ -108,8 +79,7 @@
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                            <li ><a href="#ex1" rel="modal:open"> Login</a>
-                            </li>
+                            <li ><a>Username</a> </li>
                             <li ><a></a>
                             </li>
                         </ul>
@@ -117,27 +87,19 @@
                 </div>
             </nav>       
         </div>
-
-        <div class="modal login_cont" id="ex1" style="display:none;">
-            <div class="form">
-                <h1>Login</h1>
-                <br><br><br>
-                <form id="myForm" role="form" action="{% url 'index' %}" method="post" enctype="multipart/form-data">
-                    Username <br>
-                    <input class="namebox" type="text" id="email" name="username"><br>
-                    Password <br>
-                    <input class="passbox" type="password" id="pwd" name="password">
-                    <br><br><br><br><br>
-                    <input type="button" value="Login" onclick="myFunction()" class="log">
-                    <br><br><br>
-                </form>
-            </div>
-        </div>
         <div class="container">
             <br>
-            <h1>My Page</h1>
-            <p>ssup</p> 
-              
+            <h1>Username</h1>
+            <h3>Email Adderess</h3> 
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <br><br>
+            <div id="points">
+            <h5><b>Points: 1000 Rs.</b></h5>
+            </div>
         </div>
     </body>
 </html>
