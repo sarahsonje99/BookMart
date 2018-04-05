@@ -4,7 +4,8 @@
         <title>Book Mart</title>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+        
         <style>
             body{               
                 background-repeat: no-repeat;
@@ -22,16 +23,54 @@
             .bgimg{
                 background-image: url('title1.jpg');
                 height: 250px;
-            }       
+            }  
+            .modal a.close-modal {
+                display: none;
+                position: absolute;
+                top: 3px;
+                right: 3px;
+                display: block;
+                width: 30px;
+                height: 30px;
+                text-indent: -9999px;
+            }
+            .modal {
+                display: inline-block;
+                vertical-align: middle;
+                position: relative;
+                z-index: 2;
+                max-width: 500px;
+                box-sizing: border-box;
+                width: 90%;
+                background: #fff;
+                padding: 15px 30px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px #000;
+                text-align: left;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+        
+
+        <script>
+        $(document).ready(function () {
+            $('a.open-modal').click(function (event) {
+                $(this).modal({
+                    fadeDuration: 250
+                });
+                return false;
+            });
+        });
+        </script>
     </head>
     <body >    
         <div class="container-fluid bgimg"  >
             <br><br><br><br><br><br>
             <b><h1 class="txt">BOOKMART</h1> </b>
-            <p class="txt btn">The biggest online book store!</p> 
+            <p class="txt">The biggest online book store!</p> 
         
         
             <nav id="navb" class="navbar navbar-inverse" >
@@ -53,16 +92,29 @@
                             <li><a href="#">Page 3</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <li><a href="#"> Sign Up</a></li>
+                            <li ><a href="#ex1" rel="modal:open"> Login</a>
+                            </li>
                         </ul>
                     </span>
                 </div>
-            </nav>        
+            </nav>       
         </div>
-        <div class="container">
-            <h1>My Page</h1>
-            <p>ssup</p>         
+
+        <div class="modal login_cont" id="ex1" style="display:none;">
+            <div class="form">
+                <h1>Login</h1>
+                <br><br>
+                <form id="myForm" role="form" action="{% url 'skinzy:index' %}" method="post" enctype="multipart/form-data">
+                    Username <br>
+                    <input class="namebox" type="text" id="email" name="username"><br>
+                    Password <br>
+                    <input class="passbox" type="password" id="pwd" name="password">
+                    <br><br><br>
+                    <input type="button" value="Login" onclick="myFunction()" class="log">
+                </form>
+            </div>
         </div>
+        
     </body>
 </html>

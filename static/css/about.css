@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+.member-group {
+  text-align: center;
+}
+
+.div-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+}
+
+.card {
+  overflow: hidden;
+}
+
+#ml_team, #android_team, #web_team {
+  padding-top: 75px;
+}
+
+nav-link {}
+
+.card-img-overlay {
+  background: linear-gradient(transparent 50%,#191919);
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.member-name-position {
+  position: absolute;
+  bottom: 10px;
+  transition: bottom 1s;
+}
+
+.member-contact {
+  position: absolute;
+  bottom: 10px;
+  transition: left 1s;
+  color: #0275d8 !important;
+}
+
+.card-img {
+  width: 100%;
+  transition: transform 1s;
+}
+
+.zoom-img {
+  transform: scale(1.15);
+}
