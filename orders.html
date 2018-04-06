@@ -10,7 +10,8 @@
         <style>
             body{               
                 background-repeat: no-repeat;
-                background-size: cover; 
+                background-size: cover;
+                background-color: black;  
             }
             .txt{
                 font-family: Georgia Black;
@@ -20,7 +21,6 @@
                 background-size: cover;
                 background-position: bottom;
             }
-
             .bgimg{
                 background-image: url('title1.jpg');
                 height: 250px;
@@ -39,13 +39,17 @@
             .container{
                 border:1px solid grey;
                 box-shadow: 0.5px 0.5px 1px black;
+                margin-bottom: 15px;
+                background-color: white;
             }
             hr{
                 width:90%;
-                border: 0.2px solid grey;
+                border: 1px solid grey;
             }
             .image{
-                height:150px;
+                height:210px;
+                width: 100%;
+                
             }
             .row{
                 padding:12px;
@@ -55,7 +59,15 @@
             }     
             .det{
                 font-size:14px;
-            } 
+            }
+            .affix {
+      			top: 0;
+      			width: 100%;
+      			z-index: 9999 !important;
+  			}
+			.affix + .container-fluid {
+     			padding-top: 70px;
+ 			}
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -73,27 +85,27 @@
             <p class="txt">The biggest online book store!</p> 
         
         
-            <nav id="navb" class="navbar navbar-inverse" >
+            <nav id="navb" data-spy="affix" data-offset-top="225" class="navbar navbar-inverse" >
                 <div class="container-fluid">
                     <span class="text-danger">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">BookMart</a>
                         </div>
                         <ul class="nav navbar-nav" style="text-indent:0%">
-                            <li class=""><a href="#">Home</a></li>
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                            <li class=""><a href="home.html">Home</a></li>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Page 1-1</a></li>
-                                <li><a href="#">Page 1-2</a></li>
-                                <li><a href="#">Page 1-3</a></li>
+                                <li><a href="#">Thriller</a></li>
+                                <li><a href="#">Classic</a></li>
+                                <li><a href="#">Adventure</a></li>
                             </ul>
                             </li>
-                            <li><a href="#">Page 2</a></li>
-                            <li><a href="#">Page 3</a></li>
+                            <li><a href="#">My Orders</a></li>
+                            <li><a href="profile.html">Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">
                             <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Search">
+                              <input type="text" class="form-control" placeholder="Search a book!">
                             </div>
                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
                             </button>
@@ -107,8 +119,9 @@
                 </div>
             </nav>       
         
-            <div class="container">
+            <div class="container" style="border-radius: 5px" >
                 <div class="row ">
+                    <br>
                     <div class="col-sm-2">     
                         <span><img class="img-responsive image" src = "https://www.booksofbuderim.com.au/wp-content/uploads/2016/05/Paper-Towns-MTI-Cover-521x710.jpg"></span>
                     </div>
@@ -151,11 +164,10 @@
                         <p class="det">Date of Purchase: 3<sup>rd</sup> April, 2018</p>
                         <p class="det">Delivery status : progress?</p>
                         <p class="det">Seller : seller1</p>
-                        <p class="det">Price : Rs 348</p>
-
-                    </div>
+                        <p class="det">Price : Rs 348</p>    
+                    </div>    
                 </div>
-                
+            <br>
             </div>
         </div>
     </body>
