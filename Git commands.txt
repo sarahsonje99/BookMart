@@ -1,0 +1,9 @@
+To get the starting project:
+git clone "https://github.com/sarahsonje99/BookMart.git"
+
+
+To push your changes:
+git add .
+git commit -m "message"
+git pull
+git push
