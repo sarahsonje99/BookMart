@@ -10,7 +10,8 @@
         <style>
             body{               
                 background-repeat: no-repeat;
-                background-size: cover; 
+                background-size: cover;
+                background-color: black; 
             }
             .txt{
                 font-family: Georgia Black;
@@ -36,6 +37,12 @@
                 border: 1px solid gray;
                 margin: 0; 
             }
+            .container{
+                border:1px solid grey;
+                box-shadow: 0.5px 0.5px 1px black;
+                background-color: white;
+                margin-top:42px;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -47,7 +54,7 @@
         </script>
     </head>
     <body >    
-        <div class="container-fluid bgimg"  >
+        <div class="container-fluid bgimg" >
             <br><br><br><br><br><br>
             <b><h1 class="txt">BOOKMART</h1> </b>
             <p class="txt">The biggest online book store!</p> 
@@ -87,24 +94,29 @@
                 </div>
             </nav>       
         </div>
-        <div class="container">
-            <br>
-            <h1>Username</h1>
-            <h3>Email Adderess</h3> 
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <br><br>
-            <div id="points">
-            	<h5><b>Points: 1000 Rs.</b></h5>
-            </div> <br>
-            <p style="margin-left: 2px">
-            	<b style="font-size: 20px">Address:</b><br>
-            	345, dyhj, ftrhy, rh<br>
-            	Pincode: 400 035
-            </p>
+        <div class="container"  >
+            <div class="row" style="margin-left: 20px; margin-bottom: 10px;">
+            	<h1>Username</h1>
+            	<h3>Email Adderess</h3> 
+            	<span class="fa fa-star checked"></span>
+            	<span class="fa fa-star checked"></span>
+            	<span class="fa fa-star checked"></span>
+            	<span class="fa fa-star"></span>
+            	<span class="fa fa-star"></span>
+            	<br><br>
+            	<div id="points">
+            		<h5><b>Points: 1000 Rs.</b></h5>
+            	</div> <br>
+            	<p style="margin-left: 2px">
+            		<b style="font-size: 20px">Address:</b><br>
+            		345, dyhj, ftrhy, rh<br>
+            		Pincode: 400 035
+            	</p>
+            	<p>jutrg<br><br>
+            	Info 1<br>
+            	Info 2<br>
+            </div>
         </div>
+        
     </body>
 </html>
