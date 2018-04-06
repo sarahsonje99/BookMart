@@ -58,7 +58,15 @@
             }     
             .det{
                 font-size:14px;
-            } 
+            }
+            .affix {
+      			top: 0;
+      			width: 100%;
+      			z-index: 9999 !important;
+  			}
+			.affix + .container-fluid {
+     			padding-top: 70px;
+ 			}
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -76,7 +84,7 @@
             <p class="txt">The biggest online book store!</p> 
         
         
-            <nav id="navb" class="navbar navbar-inverse" >
+            <nav id="navb" data-spy="affix" data-offset-top="225" class="navbar navbar-inverse" >
                 <div class="container-fluid">
                     <span class="text-danger">
                         <div class="navbar-header">
