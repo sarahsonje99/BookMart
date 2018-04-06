@@ -19,7 +19,6 @@
                 background-size: cover;
                 background-position: bottom;
             }
-
             .bgimg{
                 background-image: url('title1.jpg');
                 height: 250px;
@@ -43,116 +42,68 @@
                 height: 275px;
                 padding: 0%
             }
-            .desc{
+            .desc {
                 margin: 5px;
                 height:150px;
             }
-            #contain{
+            #contain {
                 width: 1300px;
                 padding-left: 80px;
             }
-            al{
-                width:100%;
-                /* padding:4%; */
-                /* height:100%; */
-                display:flex;
-                align-self:center;
-            }
-            img{
+            img {
                 width:200px;
                 height:275px;
             }  
-            .modal a.close-modal {
-                display: none;
-                position: absolute;
-                top: 3px;
-                right: 3px;
-                display: block;
-                width: 30px;
-                height: 30px;
-                text-indent: -9999px;
+            hr {
+                width:90%;
+                border: 1px solid grey;
             }
-            .modal {
-                display: inline-block;
-                vertical-align: middle;
-                position: relative;
-                z-index: 2;
-                max-width: 500px;
-                box-sizing: border-box;
-                width: 90%;
-                background: #fff;
-                padding: 15px 30px;
-                border-radius: 10px;
-                box-shadow: 0 0 10px #000;
-                text-align: left;
-            }
-            .log{
-                height: 2.5em;
-                width: 5em;
-                -webkit-transition:all 0.3s ease;
-                transition:all 0.3s ease;
-                background: none;
-                border: solid 1px black;
+            .a {
+                background-color:white;
                 color: black;
+                border-radius: 5px;
+                padding-left: 20px;
+                margin-top:0px;
             }
-div.a {
-    background-color:white;
-    color: black;
-    position: absolute;
-    top: 300px;
-    left: 400px;
-    width: 800px;
-    height: 350px;
-    border: 3px solid white;
-}
- #price{
+            #price{
                 width: 120px;
                 padding: 6px;
                 border-radius: 10px;
                 border: 1px solid gray;
                 margin: 0; 
             }
-
-.button {
-    font-size:14px;
-    position:absolute; 
-    background-color:Gold;
-    border: 1px solid Gold;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    cursor: pointer;
-    top: 660px;
-    left: 400px;
-   
-    
-}
-   </style>
+            .but {
+                font-size:14px;
+                margin-bottom: 20px;
+                background-color:Gold;
+                border: 1px solid Gold;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                cursor: pointer;
+            }
+            .affix {
+      			top: 0;
+      			width: 100%;
+      			z-index: 9999 !important;
+  			}
+			.affix + .container-fluid {
+     			padding-top: 70px;
+ 			}
+        </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
         
-
-        <script>
-        $(document).ready(function () {
-            $('a.open-modal').click(function (event) {
-                $(this).modal({
-                    fadeDuration: 250
-                });
-                return false;
-            });
-        });
-        </script>
     </head>
     <body >    
         <div class="container-fluid bgimg"  >
             <br><br><br><br><br><br>
             <b><h1 class="txt">BOOKMART</h1> </b>
             <p class="txt">The biggest online book store!</p> 
-        
-        
-            <nav id="navb" class="navbar navbar-inverse" >
+                
+            <nav id="navb" data-spy="affix" data-offset-top="225" class="navbar navbar-inverse" >
                 <div class="container-fluid">
                     <span class="text-danger">
                         <div class="navbar-header">
@@ -178,7 +129,7 @@ div.a {
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                            <li ><a href="#ex1" rel="modal:open"> Login</a>
+                            <li ><a > Username</a>
                             </li>
                             <li ><a></a>
                             </li>
@@ -188,13 +139,12 @@ div.a {
             </nav>
         </div>
         <div style="background-color: black; color:white">
-            
             <div class="container-fluid" id="contain">  
                 <br>
                 <h2>Paper Towns </h2>          
                 <br>
-                <div class="row ">
-                        <div class="col-sm-2">
+                <div class="row " style="height: 800px">
+                    <div class="col-sm-2">
                         <div class="row image">
                             <span><img class="img-responsive" src = "https://www.booksofbuderim.com.au/wp-content/uploads/2016/05/Paper-Towns-MTI-Cover-521x710.jpg"></span>
                         </div>
@@ -204,50 +154,41 @@ div.a {
                             <p class="det"><span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>
                         </div>
                     </div>
-                    <div class="col-sm-1"></div><br><br>
-			    <div class="a">
-				<h3>Brief Summary</h3>
-When Margo Roth Spiegelman beckons Quentin Jacobsen in the middle of the night--dressed like a ninja and plotting an ingenious campaign of revenge--he follows her. Margo's always planned extravagantly, and, until now, she's always planned solo. After a lifetime of loving Margo from afar, things are finally looking up for Q . . . until day breaks and she has vanished. Always an enigma, Margo has now become a mystery. But there are clues. And they're for Q.
-		<hr>
-	    <table>
-		<tr>
-			<td><b>Author:</b> </td>	
-			<td>John Green</td>
-
-		</tr>
-		<tr>
-			<td><b>Country:</b> </td>	
-			<td>United States</td>
-
-		</tr>
-		<tr>
-			<td><b>Genre:</b></td>	
-			<td>classic</td>
-
-		</tr>
-		<tr>
-			<td><b>date:</b> </td>
-			<td>October 16, 2008</td>
-		</tr>
-		<tr>
-			<td><b>Pages:</b> </td>	
-			<td>305</td>
-		</tr>
-	    </table>
-            <div id="price">
-            <h5><b>price: 800 Rs.</b></h5>
-            </div>
-       
-				</div>
-			    <button class="button">Add to Cart</button>
-		</div>
-
-            
-            
-                   
-              
-                    </div>
-                </div>    
+                    <div class="col-sm-1"></div>
+			        <div class="col-sm-9 a" >
+				        <h3>Brief Summary</h3>
+                        <p>When Margo Roth Spiegelman beckons Quentin Jacobsen in the middle of the night--dressed like a ninja and plotting an ingenious campaign of revenge--he follows her. Margo's always planned extravagantly, and, until now, she's always planned solo. After a lifetime of loving Margo from afar, things are finally looking up for Q . . . until day breaks and she has vanished. Always an enigma, Margo has now become a mystery. But there are clues. And they're for Q.
+                        </p>
+                        <hr>
+	                    <table>
+		                <tr>
+			                <td><b>Author:</b> </td>	
+			                <td>John Green</td>
+                		</tr>
+	    	            <tr>
+                			<td><b>Country:</b> </td>	
+			                <td>United States</td>
+            	    	</tr>
+            		    <tr>
+    		            	<td><b>Genre:</b></td>	
+                    			<td>classic</td>
+                        </tr>
+		                <tr>
+            		    	<td><b>Date:</b> </td>
+	            		    <td>October 16, 2008</td>
+    	            	</tr>
+	    	            <tr>
+		    	            <td><b>Pages:</b> </td>	
+			                <td>305</td>
+		                </tr>
+	                    </table>
+                        <div id="price">
+                            <h5><b>price: 800 Rs.</b></h5>
+                        </div>
+                        <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br>
+                        <Input type="button" class="but" value="Add to cart"> 
+                    </div>   
+                </div> 
             </div>
         </div>
     </body>
