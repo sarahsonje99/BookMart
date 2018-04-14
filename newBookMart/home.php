@@ -1,5 +1,46 @@
-<?php   
-    session_start();
+
+<?php
+session_start();
+$username = "root";
+$password = "";
+$database = "bookmart";
+$con = mysqli_connect("localhost",$username,$password,$database);
+if(!$con){
+    die("Connection failed: ".mysqli_connect_error());
+}
+
+if(isset($_POST['username'])){
+    $uname = $_POST['username'];
+    $pass = $_POST['password'];
+    if($_POST['isSeller'] == 'true')
+        $sql = "SELECT * FROM seller WHERE username='".$uname."' AND password='".$pass."' limit 1";
+    else if ($_POST['isSeller'] == 'false')
+        $sql = "SELECT * FROM customer WHERE username='".$uname."' AND password='".$pass."' limit 1";
+    //$sql2 = "INSERT INTO seller(username, password, email, seller_fullname) VALUES('admins','admins','admins@gmail.com','admin seller');";
+    $result = mysqli_query($con,$sql);
+    //$result1 = mysqli_query($con, $sql2);
+    if(!empty($result)){
+        //echo "is a seller";}
+        $row = mysqli_fetch_assoc($result);
+        // if($_POST['isSeller'] == 'false')
+        //echo $row["username"];
+        $_SESSION["username"] = $row["username"];
+        if($_POST['isSeller'] == 'false')
+            $_SESSION["usertype"] = "customer";
+        else if($_POST["isSeller"] == 'true')  
+            $_SESSION["usertype"] = "seller";
+        header("Location: home.php");
+        exit();
+    }
+    else{
+        //$_SESSION["loggedIn1"] = "false";
+        echo "Incorrect Login Details";
+        exit();
+    }
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -78,14 +119,51 @@
             .blank{
                 width:60px;
             }
-                        
-            .log{
+            .modal a.close-modal {
+                visibility: hidden;
+                position: absolute;
+                top: 3px;
+                right: 3px;
+                width: 30px;
+                height: 30px;
+                color:white;
+                text-indent: -9999px;
+            }
+            .modal {
+                display: inline-block;
+                vertical-align: middle;
+                position: relative;
+                z-index: 2;
+                max-width: 300px;
+                box-sizing: border-box;
+                width: 90%;
+                background-color: rgba(240,240,240,0.95);
+                padding: 15px 30px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px #000;
+                text-align: center;
+            }
+            .loginbtn{
+                color:#1414ff;
+                border: 1px solid #1414ff;
+                background-color:inherit;
+                height: 2.5em;
+                width: 5em;
+                border-radius:3px;
+                font-size:16px;
+            }
+            .loginbtn:hover{
+                color:white;
+                background-color:#1414ff;
+            }
+
+            /* .log{
                 height: 2.5em;
                 width: 5em;
                 background: none;
                 border: solid 1px black;
                 color: black;
-            }
+            } */
             .affix {
       			top: 0;
       			width: 100%;
@@ -135,16 +213,23 @@
                                 <li><a href="#">Adventure</a></li>
                             </ul>
                             </li>
-                            <li><?php 
-                            if($_SESSION["usertype"] == "cust"){
-                                echo "<a href='orders.php'>My Orders</a>";
-                                // header("Location: orders.php");
-                            }
-                            else{
-                                echo "<a href='shelf.php'>My Shelf</a>";
-                            }
-                            ?></li>
-                            <li><a href="#">Profile</a></li>
+                            <li>
+                            <?php if($_SESSION['usertype'] == "customer"): ?>
+                                <a href="orders.php">My Orders</a>
+                            <?php elseif($_SESSION['usertype'] == "seller"): ?>
+                                <a href="shelf.php">My Shelfs</a>
+                            <?php else: ?>
+                                <li ><a href="#ex1" rel="modal:open"> My Shelf/My Orders</a>
+                            <?php endif; ?>
+                            </li>
+                            <li>
+                            <?php if ($_SESSION['usertype']) : ?>
+                                <a href="profile.php"> Profile</a></li> 
+                            <?php else: ?>
+                                <a href="#ex1" rel="modal:open"> Profile</a>   
+                            <?php endif; ?> 
+
+                            
                         </ul>
                         <form class="navbar-form navbar-left" action="">
                             <div class="form-group">
@@ -154,16 +239,45 @@
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                          <li ><a > <?php echo "Hi, ". $_SESSION["username"]. " !"; ?></a>
-                          </li>
-                          <li ><a></a>
-                          </li>
-                      </ul>
+                            <?php if ($_SESSION['usertype'] ): ?>
+                                <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
+                                <li ><a> Logout</a>
+                                </li> 
+                            <?php else: ?>
+                                <li ><a href="#ex1" rel="modal:open"> Login</a>
+                                </li>   
+                            <?php endif; ?>                            
+                            <li ><a></a>
+                            </li>
+                        </ul>
                     </span>
                 </div>
             </nav>
         </div>
-               
+        <!--Modal Content-->
+        <div class="modal login_cont" id="ex1" style="display:none;">
+	            <div class="form">
+                <h1 style="margin-top:0px">Login</h1>
+                <form id="myForm" role="form" action="home.php" method="post" enctype="multipart/form-data">
+                    <p style="font-size:16px; text-align: left; margin-left:27px; margin-bottom:0px;"><br>Username </p>
+                    <input class="namebox" type="text" id="email" name="username">
+                    <p style="font-size:16px; text-align: left; margin-left:27px; margin-bottom:0px;"><br>Password </p>
+                    <input class="passbox" type="password" id="pwd" name="password">
+                    <br><br>
+                    <p style="text-align:start">Login as:&nbsp;
+                        <label>
+                            <input type="radio" name="isSeller" value="true" />&nbsp;Seller&nbsp;
+                        </label>&nbsp;&nbsp;
+                        <label>
+                            <input type="radio" name="isSeller" value="false" />&nbsp;Customer&nbsp;
+                        </label>
+                    </p>
+                    <br>
+                    <input type="submit" value="Sign In!" class="loginbtn"><br>
+                </form>
+            </div>
+         </div>
+         
         <div style="background-color: rgb(0, 0, 0); color:rgb(0, 0, 0)">
             
             <div class="container-fluid" id="contain">  
