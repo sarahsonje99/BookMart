@@ -1,32 +1,15 @@
-<<<<<<< HEAD
-=======
-<?php   
-    session_start();
-    $username = "root";
-    $password = "";
-    $database = "bookmart";
-    $con = mysqli_connect("localhost",$username,$password,$database);
-    if(!$con){
-        die("Connection failed: ".mysqli_connect_error());
-    }
-    $b_id = $_POST['bookid'];
-    // $b_id = 14;
-    $sql = "SELECT * FROM book WHERE book_id='".$b_id."'";
-    $result = mysqli_query($con,$sql);
-    if(!empty($result)){
-        $row = mysqli_fetch_assoc($result);
-        // $sql = "SELECT * FROM hasgenre WHERE fk_book_id=12";
-        $sql = "SELECT genre_name FROM genre WHERE genre_id IN (SELECT fk_genre_id FROM hasgenre WHERE fk_book_id = '".$b_id."')";
-        $gen = mysqli_query($con, $sql);
-        if(!empty($gen)){
-            $genres = mysqli_fetch_array($gen);
-            // $gcount = mysqli_num_rows($genres);
-        }        
-    }
+<?php
+
+session_start();
+$username = "root";
+$password = "";
+$database = "bookmart";
+$con = mysqli_connect("localhost",$username,$password,$database);
+if(!$con){
+    die("Connection failed: ".mysqli_connect_error());
+}
 
 ?>
->>>>>>> 88c42385efa5a8a8a952b55fcdb9b367c3af8bbc
-
 
 <!DOCTYPE html>
 <html>
@@ -165,7 +148,7 @@
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                        <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
+                        
                         <li ><a onclick = logoutJS() href="home.php"> Logout</a>
                         </li>
                             <li ><a></a>
@@ -179,19 +162,26 @@
             <div class="container-fluid" id="contain">  
                 <br>
                 <h2>
-                    <?php echo "{$row["book_name"]}";  ?> 
+                    <?php
+                    $sql2 = "SELECT * FROM book WHERE book_id = 15";
+                    $result2 = mysqli_query($con,$sql2);
+                    //echo "<h1 style='color:white;'>hiii</h1>";
+                    $num_books = mysqli_num_rows($result2);
+                    $row = mysqli_fetch_array($result2);
+                    ?>
+                    <?php echo $row["book_name"];  ?> 
  
                 </h2>          
                 <br>
                 <div class="row " style="height: 800px">
                     <div class="col-sm-2">
                         <div class="row image">
-                            <span><img class="img-responsive" src ="<?php echo "{$row["imgUrl"]}"; ?> ">
+                            <span><img class="img-responsive" src ="<?php echo $row["imgUrl"]; ?> ">
                             </span>
                         </div>
                         <div class="row desc">
-                            <p class="title">  <?php echo "{$row["book_name"]}";  ?> </p>
-                            <p class="det"><?php echo "{$row["author"]}";  ?></p>
+                            <p class="title">  <?php echo $row["book_name"];  ?> </p>
+                            <p class="det"><?php echo $row["author"];  ?></p>
                             <p class="det" >
                             <!-- <span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span> -->
                             <?php 
@@ -207,20 +197,33 @@
                     <div class="col-sm-1"></div>
 			        <div class="col-sm-9 a" >
 				        <h3>Brief Summary</h3>
-                        <p><?php echo "{$row["summary"]}";  ?></p>
+                        <p><?php echo $row["summary"];  ?></p>
                         <hr>
 	                    <table>
 		                <tr>
 			                <td><b>Author:</b> </td>	
-			                <td><?php echo "{$row["author"]}";  ?></td>
+			                <td><?php echo $row["author"];  ?></td>
                 		</tr>
 	    	            <tr>
-    		            	<td><b>Genre:</b></td>	
-                    		<td><?php echo "{$row["genre"]}";  ?></td>
+    		            	<td><b>Genre:</b></td>
+                            <td>	
+                            <?php
+                                $sql = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id=15";
+                                //echo "<h1 >.$sql.</h1>";
+                                $result3 = mysqli_query($con,$sql);
+                                $num_genres = mysqli_num_rows($result3);
+                                for($k=0; $k<$num_genres; $k++) {
+                                    if($k!=0)
+                                        echo ", ";
+                                    $row2 = mysqli_fetch_array($result3);
+                                    echo $row2["genre_name"];
+                                }
+                            ?>
+                            </td>
                         </tr> 
                         <tr>
 		    	            <td><b>Pages:</b> </td>	
-			                <td><?php echo "{$row["pages"]}";  ?></td>
+			                <td><?php echo $row['pages'];  ?></td>
 		                </tr>                       
                         <tr>
                 			<td><b>Country:</b> </td>	
@@ -235,7 +238,7 @@
 	                    </table>
                         <br>
                         <div id="price">
-                            <h5><b>Price: Rs. <?php echo "{$row["book_cost"]}";  ?></b></h5>
+                            <h5><b>Price: Rs. <?php echo "{$row['book_cost']}";  ?></b></h5>
                         </div>
                         <br>
                         <!-- <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br> -->
