@@ -1,5 +1,6 @@
 
 <?php
+error_reporting(0);
 session_start();
 $username = "root";
 $password = "";
@@ -181,6 +182,12 @@ if(isset($_POST['username'])){
         
 
         <script>
+        function logoutJS() {
+            <?php session_destroy(); 
+            console.log("Logged out?");
+            header('location: home.php'); ?>
+            alert("You have logged out!")
+        }
         $(document).ready(function () {
             $('a.open-modal').click(function (event) {
                 $(this).modal({
@@ -247,10 +254,10 @@ if(isset($_POST['username'])){
                         <ul class="nav navbar-nav navbar-right">
                             <?php if ($_SESSION['usertype'] ): ?>
                                 <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
-                                <li ><a> Logout</a>
+                                <li ><a onclick = logoutJS() href="home.php"> Logout</a>
                                 </li> 
                             <?php else: ?>
-                                <li ><a href="#ex1" rel="modal:open"> Login</a>
+                                <li ><a href="#ex1" id="a.open-modal" rel="modal:open"> Login</a>
                                 </li>   
                             <?php endif; ?>                            
                             <li ><a></a>
