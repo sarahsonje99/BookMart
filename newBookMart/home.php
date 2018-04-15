@@ -184,6 +184,18 @@ if(isset($_POST['username'])){
                 border-top-right-radius:0px;  
 
              }
+             /* #genre1{
+                 display:none;
+             }
+             #genre2{
+                 display:none;
+             }
+             #genre3{
+                 display:none;
+             }
+             #genre4{
+                 display:none;
+             } */
             
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -202,7 +214,51 @@ if(isset($_POST['username'])){
             });
         });
 
-        
+        function dispTogg(abc){
+            var gen0 = document.getElementById("noGen");
+            var gen1 = document.getElementById("genre1");
+            var gen2 = document.getElementById("genre2");
+            var gen3 = document.getElementById("genre3");
+            var gen4 = document.getElementById("genre4");
+            switch(abc){
+                case 1: {
+                    gen0.style.display = "none";
+                    gen1.style.display = "block";
+                    gen2.style.display = "none";
+                    gen3.style.display = "none";
+                    gen4.style.display = "none";
+                    
+                }
+                case 2: {
+                    gen0.style.display = "none";
+                    gen1.style.display = "none";
+                    gen2.style.display = "block";
+                    gen3.style.display = "none";
+                    gen4.style.display = "none";
+                    
+                }
+                case 3: {
+                    gen0.style.display = "none";
+                    gen1.style.display = "none";
+                    gen2.style.display = "none";
+                    gen3.style.display = "block";
+                    gen4.style.display = "none";
+                    
+                }
+                case 4: {
+                    gen0.style.display = "none";
+                    gen1.style.display = "none";
+                    gen2.style.display = "none";
+                    gen3.style.display = "none";
+                    gen4.style.display = "block";
+                    
+                }
+            }
+
+        }
+
+
+
         </script>
     </head>
     <body >    
@@ -222,9 +278,11 @@ if(isset($_POST['username'])){
                             <li class=""><a href="home.php">Home</a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Thriller</a></li>
-                                <li><a href="#">Classic</a></li>
-                                <li><a href="#">Adventure</a></li>
+                                <li><a onClick="dispTogg(1)">Fiction</a></li>
+                                <li><a onClick="dispTogg(2)">Thriller</a></li>
+                                <li><a onClick="dispTogg(3)">Classic</a></li>
+                                <li><a onClick="dispTogg(4)">Novel</a></li>
+
                             </ul>
                             </li>
                             <li>
@@ -295,7 +353,7 @@ if(isset($_POST['username'])){
          
         <div style="background-color: rgb(0, 0, 0); color:rgb(0, 0, 0)">
             
-            <div class="container-fluid" id="contain">                
+            <div class="container-fluid " id="contain">                
                 <br><br><br>
                 
                 <?php
@@ -305,6 +363,7 @@ if(isset($_POST['username'])){
                     }
 
                 ?>
+                <div id="noGen">
                 <h3 style="color: white">Catalogue : </h3>          
                 <br>
                 <?php
@@ -353,11 +412,239 @@ if(isset($_POST['username'])){
                             echo '<div class="col-sm-1 blank"></div>';
                         }
                     }
-                    echo '</div>';
+                    echo '</div></div>';
                 }
 
 
                 ?>
+
+<?php 
+    $sql2 = "SELECT * FROM book b, hasgenre h WHERE b.book_id = h.fk_book_id AND h.fk_genre_id = 1";
+    $result2 = mysqli_query($con,$sql2);
+    //echo "<h1 style='color:white;'>hiii</h1>";
+    $num_books = mysqli_num_rows($result2);
+    //echo "<h1 style='color:white;'>hiii".$num_books."</h1>";
+    for ($i=0; $i<$num_books; )
+    {
+        //echo "<h1 style='color:white;'>hiii</h1>";
+        echo '
+        <div id="contain">
+        <div id="genre1" >
+        <h3 style="color:white"> Genre - Fiction </h3>
+        <br>
+        <div class="row vertical-dist-between-tiles">';
+        for($j=0 ;$j<4 && $i<$num_books; $j++, $i++ ){
+            //echo "<h1 style='color:white;'>hiii</h1>";
+            $row = mysqli_fetch_array($result2);
+            $bid = $row["book_id"];
+            $sql = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+            //echo "<h1 style='color:white;'>.$sql.</h1>";
+            $result3 = mysqli_query($con,$sql);
+            $num_genres = mysqli_num_rows($result3);
+            echo '
+            <form action="book.php" method="get">
+            <div class="col-sm-2 tile" name="bookID" type="submit" value="'.$bid.'" >
+            <div class="row image">
+                <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
+            </div>
+            <div class = "row desc">
+                <p class="title">'.($row["book_name"]).'</p>
+                <p class="det">'.($row["author"]).'</p>
+                <p class="det">';
+                for($k=0; $k<$num_genres; $k++) {
+                    $row2 = mysqli_fetch_array($result3);
+                    echo '<span class="tag">'.$row2["genre_name"].'</span>&nbsp;&nbsp;';
+                }
+            echo '
+            </p>
+            
+            </div>
+            
+            </form>
+            <button style="width:240px;margin-left:-27px" class="btn btn-primary det" type="submit" name="bookID" value="'.$bid.'">View Book!</button>
+                
+            </div>
+            ';
+            if($j!=3) {                        
+                echo '<div class="col-sm-1 blank"></div>';
+            }
+        }
+        echo '</div></div></div>';
+    }
+?>
+
+
+
+
+<?php 
+    $sql2 = "SELECT * FROM book b, hasgenre h WHERE b.book_id = h.fk_book_id AND h.fk_genre_id = 2";
+    $result2 = mysqli_query($con,$sql2);
+    //echo "<h1 style='color:white;'>hiii</h1>";
+    $num_books = mysqli_num_rows($result2);
+    //echo "<h1 style='color:white;'>hiii".$num_books."</h1>";
+    for ($i=0; $i<$num_books; )
+    {
+        //echo "<h1 style='color:white;'>hiii</h1>";
+        echo '<div id="contain">
+        <div id="genre2">
+        <h3 style="color:white"> Genre - Thriller </h3>
+        <br>
+        <div class="row vertical-dist-between-tiles">';
+        for($j=0 ;$j<4 && $i<$num_books; $j++, $i++ ){
+            //echo "<h1 style='color:white;'>hiii</h1>";
+            $row = mysqli_fetch_array($result2);
+            $bid = $row["book_id"];
+            $sql = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+            //echo "<h1 style='color:white;'>.$sql.</h1>";
+            $result3 = mysqli_query($con,$sql);
+            $num_genres = mysqli_num_rows($result3);
+            echo '
+            <form action="book.php" method="get">
+            <div class="col-sm-2 tile" name="bookID" type="submit" value="'.$bid.'" >
+            <div class="row image">
+                <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
+            </div>
+            <div class = "row desc">
+                <p class="title">'.($row["book_name"]).'</p>
+                <p class="det">'.($row["author"]).'</p>
+                <p class="det">';
+                for($k=0; $k<$num_genres; $k++) {
+                    $row2 = mysqli_fetch_array($result3);
+                    echo '<span class="tag">'.$row2["genre_name"].'</span>&nbsp;&nbsp;';
+                }
+            echo '
+            </p>
+            
+            </div>
+            
+            </form>
+            <button style="width:240px;margin-left:-27px" class="btn btn-primary det" type="submit" name="bookID" value="'.$bid.'">View Book!</button>
+                
+            </div>
+            ';
+            if($j!=3) {                        
+                echo '<div class="col-sm-1 blank"></div>';
+            }
+        }
+        echo '</div></div></div>';
+    }
+?>
+
+
+
+
+
+<?php 
+    $sql2 = "SELECT * FROM book b, hasgenre h WHERE b.book_id = h.fk_book_id AND h.fk_genre_id = 3";
+    $result2 = mysqli_query($con,$sql2);
+    //echo "<h1 style='color:white;'>hiii</h1>";
+    $num_books = mysqli_num_rows($result2);
+    //echo "<h1 style='color:white;'>hiii".$num_books."</h1>";
+    for ($i=0; $i<$num_books; )
+    {
+        //echo "<h1 style='color:white;'>hiii</h1>";
+        echo '<div id="contain">
+        <div id="genre3">
+        <h3 style="color:white"> Genre - Classic </h3>
+        <br>
+        <div class="row vertical-dist-between-tiles">';
+        for($j=0 ;$j<4 && $i<$num_books; $j++, $i++ ){
+            //echo "<h1 style='color:white;'>hiii</h1>";
+            $row = mysqli_fetch_array($result2);
+            $bid = $row["book_id"];
+            $sql = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+            //echo "<h1 style='color:white;'>.$sql.</h1>";
+            $result3 = mysqli_query($con,$sql);
+            $num_genres = mysqli_num_rows($result3);
+            echo '
+            <form action="book.php" method="get">
+            <div class="col-sm-2 tile" name="bookID" type="submit" value="'.$bid.'" >
+            <div class="row image">
+                <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
+            </div>
+            <div class = "row desc">
+                <p class="title">'.($row["book_name"]).'</p>
+                <p class="det">'.($row["author"]).'</p>
+                <p class="det">';
+                for($k=0; $k<$num_genres; $k++) {
+                    $row2 = mysqli_fetch_array($result3);
+                    echo '<span class="tag">'.$row2["genre_name"].'</span>&nbsp;&nbsp;';
+                }
+            echo '
+            </p>
+            
+            </div>
+            
+            </form>
+            <button style="width:240px;margin-left:-27px" class="btn btn-primary det" type="submit" name="bookID" value="'.$bid.'">View Book!</button>
+                
+            </div>
+            ';
+            if($j!=3) {                        
+                echo '<div class="col-sm-1 blank"></div>';
+            }
+        }
+        echo '</div></div></div>';
+    }
+?>
+
+
+
+
+<!-- GENRE 4 - NOVEL -->
+<?php 
+    $sql2 = "SELECT * FROM book b, hasgenre h WHERE b.book_id = h.fk_book_id AND h.fk_genre_id = 4";
+    $result2 = mysqli_query($con,$sql2);
+    //echo "<h1 style='color:white;'>hiii</h1>";
+    $num_books = mysqli_num_rows($result2);
+    //echo "<h1 style='color:white;'>hiii".$num_books."</h1>";
+    for ($i=0; $i<$num_books; )
+    {
+        //echo "<h1 style='color:white;'>hiii</h1>";
+        echo '<div id="contain">
+        <div id="genre4">
+        <h3 style="color:white"> Genre - Novel </h3>
+        <br>
+        <div class="row vertical-dist-between-tiles">';
+        for($j=0 ;$j<4 && $i<$num_books; $j++, $i++ ){
+            //echo "<h1 style='color:white;'>hiii</h1>";
+            $row = mysqli_fetch_array($result2);
+            $bid = $row["book_id"];
+            $sql = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+            //echo "<h1 style='color:white;'>.$sql.</h1>";
+            $result3 = mysqli_query($con,$sql);
+            $num_genres = mysqli_num_rows($result3);
+            echo '
+            <form action="book.php" method="get">
+            <div class="col-sm-2 tile" name="bookID" type="submit" value="'.$bid.'" >
+            <div class="row image">
+                <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
+            </div>
+            <div class = "row desc">
+                <p class="title">'.($row["book_name"]).'</p>
+                <p class="det">'.($row["author"]).'</p>
+                <p class="det">';
+                for($k=0; $k<$num_genres; $k++) {
+                    $row2 = mysqli_fetch_array($result3);
+                    echo '<span class="tag">'.$row2["genre_name"].'</span>&nbsp;&nbsp;';
+                }
+            echo '
+            </p>
+            
+            </div>
+            
+            </form>
+            <button style="width:240px;margin-left:-27px" class="btn btn-primary det" type="submit" name="bookID" value="'.$bid.'">View Book!</button>
+                
+            </div>
+            ';
+            if($j!=3) {                        
+                echo '<div class="col-sm-1 blank"></div>';
+            }
+        }
+        echo '</div></div></div>';
+    }
+?>
 <!--
                 <div class="row vertical-dist-between-tiles">
                 

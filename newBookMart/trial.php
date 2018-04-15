@@ -13,7 +13,7 @@
 <html>
 <body>
 <?php 
-    echo $bid;
+echo $_SESSION["user_id"];
 ?>
 
 </body>

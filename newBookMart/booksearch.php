@@ -17,10 +17,11 @@
             print_r($result4);
         }
         else{
-            print_r($result4);
             $_SESSION['bookNotFound'] = true;
+            header('Location: home.php');
+
+            print_r($result4);
             print_r($_SESSION['bookNotFound']);
-            // header('Location: home.php');
         }
     }
 
