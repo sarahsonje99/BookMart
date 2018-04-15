@@ -1,3 +1,31 @@
+<<<<<<< HEAD
+=======
+<?php   
+    session_start();
+    $username = "root";
+    $password = "";
+    $database = "bookmart";
+    $con = mysqli_connect("localhost",$username,$password,$database);
+    if(!$con){
+        die("Connection failed: ".mysqli_connect_error());
+    }
+    $b_id = $_POST['bookid'];
+    // $b_id = 14;
+    $sql = "SELECT * FROM book WHERE book_id='".$b_id."'";
+    $result = mysqli_query($con,$sql);
+    if(!empty($result)){
+        $row = mysqli_fetch_assoc($result);
+        // $sql = "SELECT * FROM hasgenre WHERE fk_book_id=12";
+        $sql = "SELECT genre_name FROM genre WHERE genre_id IN (SELECT fk_genre_id FROM hasgenre WHERE fk_book_id = '".$b_id."')";
+        $gen = mysqli_query($con, $sql);
+        if(!empty($gen)){
+            $genres = mysqli_fetch_array($gen);
+            // $gcount = mysqli_num_rows($genres);
+        }        
+    }
+
+?>
+>>>>>>> 88c42385efa5a8a8a952b55fcdb9b367c3af8bbc
 
 
 <!DOCTYPE html>
@@ -92,6 +120,11 @@
 			.affix + .container-fluid {
      			padding-top: 70px;
  			}
+            td:first-child{
+                width:70px;
+            }
+
+
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -145,51 +178,67 @@
         <div style="background-color: black; color:white">
             <div class="container-fluid" id="contain">  
                 <br>
-                <h2>Paper Towns </h2>          
+                <h2>
+                    <?php echo "{$row["book_name"]}";  ?> 
+ 
+                </h2>          
                 <br>
                 <div class="row " style="height: 800px">
                     <div class="col-sm-2">
                         <div class="row image">
-                            <span><img class="img-responsive" src = "https://www.booksofbuderim.com.au/wp-content/uploads/2016/05/Paper-Towns-MTI-Cover-521x710.jpg"></span>
+                            <span><img class="img-responsive" src ="<?php echo "{$row["imgUrl"]}"; ?> ">
+                            </span>
                         </div>
                         <div class="row desc">
-                            <p class="title">Paper Towns</p>
-                            <p class="det">John Green</p>
-                            <p class="det"><span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>
+                            <p class="title">  <?php echo "{$row["book_name"]}";  ?> </p>
+                            <p class="det"><?php echo "{$row["author"]}";  ?></p>
+                            <p class="det" >
+                            <!-- <span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span> -->
+                            <?php 
+                                // foreach($genres as $g){
+                                    // echo '<span class="tag">'.($g[0]).'</span>&nbsp;&nbsp;';
+                                    // echo "<table><tr><td>".($row_users['email'])."</td></tr>";
+
+                                // }
+                            ?>
+                            </p>
                         </div>
                     </div>
                     <div class="col-sm-1"></div>
 			        <div class="col-sm-9 a" >
 				        <h3>Brief Summary</h3>
-                        <p>When Margo Roth Spiegelman beckons Quentin Jacobsen in the middle of the night--dressed like a ninja and plotting an ingenious campaign of revenge--he follows her. Margo's always planned extravagantly, and, until now, she's always planned solo. After a lifetime of loving Margo from afar, things are finally looking up for Q . . . until day breaks and she has vanished. Always an enigma, Margo has now become a mystery. But there are clues. And they're for Q.
-                        </p>
+                        <p><?php echo "{$row["summary"]}";  ?></p>
                         <hr>
 	                    <table>
 		                <tr>
 			                <td><b>Author:</b> </td>	
-			                <td>John Green</td>
+			                <td><?php echo "{$row["author"]}";  ?></td>
                 		</tr>
 	    	            <tr>
+    		            	<td><b>Genre:</b></td>	
+                    		<td><?php echo "{$row["genre"]}";  ?></td>
+                        </tr> 
+                        <tr>
+		    	            <td><b>Pages:</b> </td>	
+			                <td><?php echo "{$row["pages"]}";  ?></td>
+		                </tr>                       
+                        <tr>
                 			<td><b>Country:</b> </td>	
 			                <td>United States</td>
             	    	</tr>
-            		    <tr>
-    		            	<td><b>Genre:</b></td>	
-                    			<td>classic</td>
-                        </tr>
+            		    
 		                <tr>
             		    	<td><b>Date:</b> </td>
 	            		    <td>October 16, 2008</td>
     	            	</tr>
-	    	            <tr>
-		    	            <td><b>Pages:</b> </td>	
-			                <td>305</td>
-		                </tr>
+	    	            
 	                    </table>
+                        <br>
                         <div id="price">
-                            <h5><b>price: 800 Rs.</b></h5>
+                            <h5><b>Price: Rs. <?php echo "{$row["book_cost"]}";  ?></b></h5>
                         </div>
-                        <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br>
+                        <br>
+                        <!-- <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br> -->
                         <Input type="button" class="but" value="Add to cart"> 
                     </div>   
                 </div> 
