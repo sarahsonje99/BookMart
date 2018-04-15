@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+
+$username = "root";
+$password = "";
+$database = "bookmart";
+$con = mysqli_connect("localhost",$username,$password,$database);
+if(!$con){
+    die("Connection failed: ".mysqli_connect_error());
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,6 +72,11 @@
         
 
         <script>
+        function logoutJS() {
+            <?php session_destroy(); 
+            console.log("Logged out?"); ?>
+            alert("You have logged out!")
+        }
         </script>
     </head>
     <body >    
@@ -74,7 +93,7 @@
                             <a class="navbar-brand" href="#">BookMart</a>
                         </div>
                         <ul class="nav navbar-nav" style="text-indent:0%">
-                            <li class=""><a href="home.html">Home</a></li>
+                            <li class=""><a href="home.php">Home</a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Thriller</a></li>
@@ -82,7 +101,8 @@
                                 <li><a href="#">Adventure</a></li>
                             </ul>
                             </li>
-                            <li><a href="orders.html">My Orders</a></li>
+                            <li>
+                                <a href="shelf.php">My Orders</a></li>
                             <li><a href="#">My Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">
@@ -93,7 +113,8 @@
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                            <li ><a>Username</a> </li>
+                        <li ><a onclick = logoutJS() href="home.php"> Logout</a>
+                        </li>
                             <li ><a></a>
                             </li>
                         </ul>
