@@ -1,6 +1,3 @@
-<?php   
-    session_start();
-?>
 
 
 <!DOCTYPE html>
@@ -135,8 +132,9 @@
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                            <li ><a > <?php echo "Hi, ". $_SESSION["username"]. " !"; ?></a>
-                            </li>
+                        <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
+                        <li ><a onclick = logoutJS() href="home.php"> Logout</a>
+                        </li>
                             <li ><a></a>
                             </li>
                         </ul>

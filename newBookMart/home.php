@@ -1,4 +1,3 @@
-
 <?php
 error_reporting(0);
 session_start();
@@ -17,14 +16,9 @@ if(isset($_POST['username'])){
         $sql = "SELECT * FROM seller WHERE username='".$uname."' AND password='".$pass."' limit 1";
     else if ($_POST['isSeller'] == 'false')
         $sql = "SELECT * FROM customer WHERE username='".$uname."' AND password='".$pass."' limit 1";
-    //$sql2 = "INSERT INTO seller(username, password, email, seller_fullname) VALUES('admins','admins','admins@gmail.com','admin seller');";
     $result = mysqli_query($con,$sql);
-    //$result1 = mysqli_query($con, $sql2);
     if(!empty($result)){
-        //echo "is a seller";}
         $row = mysqli_fetch_assoc($result);
-        // if($_POST['isSeller'] == 'false')
-        //echo $row["username"];
         $_SESSION["username"] = $row["username"];
         if($_POST['isSeller'] == 'false')
             $_SESSION["usertype"] = "customer";
@@ -34,7 +28,6 @@ if(isset($_POST['username'])){
         exit();
     }
     else{
-        //$_SESSION["loggedIn1"] = "false";
         echo "Incorrect Login Details";
         exit();
     }
@@ -291,6 +284,48 @@ if(isset($_POST['username'])){
                 <br>
                 <h3 style="color: white">Catalogue : </h3>          
                 <br>
+                <?php
+                $sql2 = "SELECT * FROM book";
+                $result2 = mysqli_query($con,$sql2);
+                //echo "<h1 style='color:white;'>hiii</h1>";
+                $num_books = mysqli_num_rows($result2);
+                //echo "<h1 style='color:white;'>hiii".$num_books."</h1>";
+                for ($i=0; $i<$num_books; )
+                {
+                    //echo "<h1 style='color:white;'>hiii</h1>";
+                    echo '<div class="row vertical-dist-between-tiles">';
+                    for($j=0 ;$j<4 && $i<$num_books; $j++, $i++ ){
+                        //echo "<h1 style='color:white;'>hiii</h1>";
+                        $row = mysqli_fetch_array($result2);
+                        $sql = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+                        //echo "<h1 style='color:white;'>.$sql.</h1>";
+                        $result3 = mysqli_query($con,$sql);
+                        $num_genres = mysqli_num_rows($result3);
+                        echo '<div class="col-sm-2 tile">
+                        <div class="row image">
+                            <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
+                        </div>
+                        <div class = "row desc">
+                            <p class="title">'.($row["book_name"]).'</p>
+                            <p class="det">'.($row["author"]).'</p>
+                            <p class="det">';
+                            for($k=0; $k<$num_genres; $k++) {
+                                $row2 = mysqli_fetch_array($result3);
+                                echo '<span class="tag">'.$row2["genre_name"].'</span>&nbsp;&nbsp;';
+                            }
+                        echo '
+                        </p></div>
+                        </div>';
+                        if($j!=3) {                        
+                            echo '<div class="col-sm-1 blank"></div>';
+                        }
+                    }
+                    echo '</div>';
+                }
+
+
+                ?>
+<!--
                 <div class="row vertical-dist-between-tiles">
                 
                     <div class="col-sm-2 tile"  >
@@ -355,7 +390,8 @@ if(isset($_POST['username'])){
                             <p class="det"><span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>
                         </div>
                     </div>
-                </div>    
+                </div>
+                -->    
             </div>
         </div>
     </body>
