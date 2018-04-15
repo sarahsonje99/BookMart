@@ -1,13 +1,12 @@
-<?php
-
-session_start();
-$username = "root";
-$password = "";
-$database = "bookmart";
-$con = mysqli_connect("localhost",$username,$password,$database);
-if(!$con){
-    die("Connection failed: ".mysqli_connect_error());
-}
+<?php   
+    session_start();
+    $username = "root";
+    $password = "";
+    $database = "bookmart";
+    $con = mysqli_connect("localhost",$username,$password,$database);
+    if(!$con){
+        die("Connection failed: ".mysqli_connect_error());
+    }
 
 ?>
 
@@ -64,8 +63,8 @@ if(!$con){
                 padding-left: 80px;
             }
             img {
-                width:200px;
-                height:275px;
+                /* width:200px; */
+                height:235px;
             }  
             hr {
                 width:90%;
@@ -106,7 +105,9 @@ if(!$con){
             td:first-child{
                 width:70px;
             }
-
+            .img-responsive{
+                height:275px;
+            }
 
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -147,9 +148,9 @@ if(!$con){
                             <?php endif ?>
                             <li><a href=profile.php>Profile</a></li>
                         </ul>
-                        <form class="navbar-form navbar-left" action="">
+                        <form class="navbar-form navbar-left" action="" method = "get">
                             <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Search">
+                              <input type="text" class="form-control" name="searchquery" placeholder="Search">
                             </div>
                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
                             </button>
@@ -170,7 +171,8 @@ if(!$con){
                 <br>
                 <h2>
                     <?php
-                    $sql2 = "SELECT * FROM book WHERE book_id = 15";
+                    $bid = $_GET["bookID"];
+                    $sql2 = "SELECT * FROM book WHERE book_id = ".$bid;
                     $result2 = mysqli_query($con,$sql2);
                     //echo "<h1 style='color:white;'>hiii</h1>";
                     $num_books = mysqli_num_rows($result2);

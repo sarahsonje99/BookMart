@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 session_start();
 
 $username = "root";
@@ -9,7 +8,7 @@ $con = mysqli_connect("localhost",$username,$password,$database);
 if(!$con){
     die("Connection failed: ".mysqli_connect_error());
 }
-
+// display_errors = on;
 if(isset($_POST['username'])){
     $uname = $_POST['username'];
     $pass = $_POST['password'];
@@ -114,7 +113,7 @@ if(isset($_POST['username'])){
             }
             .tile{
                 background-color: white;
-                margin-bottom: 75px;
+                /* margin-bottom: 75px; */
                 padding-left: 27px;
                 padding-right: 27px;
                 padding-top: 12px;
@@ -180,6 +179,11 @@ if(isset($_POST['username'])){
 			.affix + .container-fluid {
      			padding-top: 70px;
  			}
+             .btn{
+                border-top-left-radius:0px;  
+                border-top-right-radius:0px;  
+
+             }
             
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -198,11 +202,7 @@ if(isset($_POST['username'])){
             });
         });
 
-        function viewDet(){
-            var bookid = 12;
-            $.post('book.php',{bookid});
-            document.location.href='book.php';
-        }
+        
         </script>
     </head>
     <body >    
@@ -244,20 +244,21 @@ if(isset($_POST['username'])){
 
                             
                         </ul>
-                        <form class="navbar-form navbar-left" action="">
+                        <form class="navbar-form navbar-left" action="booksearch.php" method="post">
                             <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Search a book!">
+                              <input type="text" class="form-control" name="searchquery" placeholder="Search a book!">
                             </div>
                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
                             </button>
-                          </form>
+                        </form>
+                            
                         <ul class="nav navbar-nav navbar-right">
                             <?php if ($_SESSION['username'] && $_SESSION['usertype'] ): ?>
                                 <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
                                 <li ><a  href="logout.php"> Logout</a>
                                 </li> 
                             <?php else: ?>
-                                <li ><a href="#ex1" id="a.open-modal" rel="modal:open"> Login</a>
+                                <li ><a href="#ex1" rel="modal:open"> Login</a>
                                 </li>   
                             <?php endif; ?>                            
                             <li ><a></a>
@@ -293,8 +294,16 @@ if(isset($_POST['username'])){
          
         <div style="background-color: rgb(0, 0, 0); color:rgb(0, 0, 0)">
             
-            <div class="container-fluid" id="contain">  
-                <br>
+            <div class="container-fluid" id="contain">                
+                <br><br><br>
+                
+                <?php
+                    if($_SESSION['bookNotFound'] == true){
+                        echo '<p style="color:white">Search not found. Please try again.</p>';
+                        $_SESSION['bookNotFound'] = false;
+                    }
+
+                ?>
                 <h3 style="color: white">Catalogue : </h3>          
                 <br>
                 <?php
@@ -310,11 +319,14 @@ if(isset($_POST['username'])){
                     for($j=0 ;$j<4 && $i<$num_books; $j++, $i++ ){
                         //echo "<h1 style='color:white;'>hiii</h1>";
                         $row = mysqli_fetch_array($result2);
+                        $bid = $row["book_id"];
                         $sql = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
                         //echo "<h1 style='color:white;'>.$sql.</h1>";
                         $result3 = mysqli_query($con,$sql);
                         $num_genres = mysqli_num_rows($result3);
-                        echo '<div class="col-sm-2 tile">
+                        echo '
+                        <form action="book.php" method="get">
+                        <div class="col-sm-2 tile" name="bookID" type="submit" value="'.$bid.'" >
                         <div class="row image">
                             <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
                         </div>
@@ -327,8 +339,15 @@ if(isset($_POST['username'])){
                                 echo '<span class="tag">'.$row2["genre_name"].'</span>&nbsp;&nbsp;';
                             }
                         echo '
-                        </p></div>
-                        </div>';
+                        </p>
+                        
+                        </div>
+                        
+                        </form>
+                        <button style="width:240px;margin-left:-27px" class="btn btn-primary det" type="submit" name="bookID" value="'.$bid.'">View Book!</button>
+                            
+                        </div>
+                        ';
                         if($j!=3) {                        
                             echo '<div class="col-sm-1 blank"></div>';
                         }
@@ -341,7 +360,7 @@ if(isset($_POST['username'])){
 <!--
                 <div class="row vertical-dist-between-tiles">
                 
-                    <div class="col-sm-2 tile" onClick="viewDet();" >
+                    <div class="col-sm-2 tile" >
                         <div class="row image">
                             <span><img class="img-responsive" style="width:100%; height: 100%;" src = "https://resizing.flixster.com/7-QFEH63yycuAzN5jjo6fevs0qg=/206x305/v1.bTsxMTIwOTQ2MDtqOzE3NzI0OzEyMDA7MzMxODs0NDI0"></span>
                         </div>
@@ -350,6 +369,9 @@ if(isset($_POST['username'])){
                             <p class="det">Dan Brown</p>
                             <p class="det"><span class="tag">Thriller</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>        
                         </div>
+                        <form action="book.php" method="get" >
+                            <button type="submit" >View</button>
+                        </form>
                     </div>
                     <div class="col-sm-1 blank"></div>
             
@@ -407,5 +429,6 @@ if(isset($_POST['username'])){
                 -->    
             </div>
         </div>
+                
     </body>
 </html>
