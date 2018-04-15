@@ -191,7 +191,7 @@ if(!$con){
                             </p>
                             <p class="det">Seller : '.$row['seller_fullname'].'</p>
                             <p class="det">Price : Rs.'.$row['book_cost'].'</p>
-                            <p class="det">Availability : '.$row['availability'].'</p>
+                            <p class="det">Availability : '.$row['avail'].'</p>
                         </div>
                     </div>';
                     if($i!=$num_orders-1)

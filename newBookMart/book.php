@@ -1,6 +1,5 @@
 <?php   
     session_start();
-    error_reporting(0);
     $username = "root";
     $password = "";
     $database = "bookmart";
@@ -9,7 +8,17 @@
         die("Connection failed: ".mysqli_connect_error());
     }
 
-?>
+/*
+                            if(isset($_POST['addtocart_sells'])){
+                                $sells_id = $_POST['addtocart_sells'];
+                                $sql3 = "INSERT INTO booktocart(fk_customer_id, fk_sells_id) VALUES (".($_SESSION["user_id"]).",".$sells_id.")";
+                                echo $sql3;
+                                exit();
+                                $result5 = mysqli_query($con, $sql3);
+                                echo 'Added Successfully!';
+                            }*/
+                        
+                        ?>
 
 <!DOCTYPE html>
 <html>
@@ -264,34 +273,34 @@
                         </div>
                         <br>
                         <p><strong>Select a Seller:</strong> </p>
-                        <form method="post">
-                        <?php 
-                            $sql2 = "SELECT * FROM seller s, sells ss WHERE s.seller_id = ss.fk_seller_id AND ss.fk_book_id = ".$bid;
-                            $result4 = mysqli_query($con, $sql2);
-                            $num_sellers = mysqli_num_rows($result4);
-                            for($i=0;$i<$num_sellers;$i++){
-                                $row = mysqli_fetch_assoc($result4);
-                                echo '<div class="row"><span class="col-sm-2"><input  type = "radio" name="seller" value="'.($row["sells_id"]).'">&nbsp;&nbsp;'.($row["seller_fullname"]).'</span>';
-                                echo '<span class="col-sm-2"> Rating: '.($row['seller_rating']).'</span></div>';
-                                echo '<br>';
+                        <script>
+                        function addtocart() { 
+                            
+                            alert('Added to cart successfully'); 
                             }
-                        ?>
+                        </script>
+                        <form method="post" onsubmit="addtocart()" action="addToCart.php">
+                            <?php 
+                                $sql2 = "SELECT * FROM seller s, sells ss WHERE s.seller_id = ss.fk_seller_id AND ss.fk_book_id = ".$bid;
+                                //echo "<p>".$sql2."</p>";
+                                $result4 = mysqli_query($con, $sql2);
+                                //echo $result4;
+                                $num_sellers = mysqli_num_rows($result4);
+                                //echo $num_sellers;
+                                for($i=0;$i<$num_sellers;$i++){
+                                    $row = mysqli_fetch_assoc($result4);
+                                    echo '<div class="row"><span class="col-sm-2"><input  type = "radio" name="addtocart_sells" value="'.($row["sells_id"]).'">&nbsp;&nbsp;'.($row["seller_fullname"]).'</span>';
+                                    echo '<span class="col-sm-2"> Rating: '.($row['seller_rating']).'</span></div>';
+                                    echo '<br>';
+                                }
+                            ?>
                         
-                        <!-- <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br> -->
-                        <br>
+                            <!-- <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br> -->
+                            <br>
 
-                        
                         <button type="submit" class="but" >Add To Cart </button>
                         </form>
-                        <?php 
-                            if(isset($_POST['seller'])){
-                                $sells_id = $_POST['seller'];
-                                $sql3 = "INSERT INTO booktocart(fk_customer_id, fk_sells_id) VALUES (".($_SESSION["user_id"]).",".$sells_id.")";
-                                $result5 = mysqli_query($con, $sql3);
-                                echo 'Added Successfully!';
-                            }
                         
-                        ?>
                     </div>   
                 </div> 
             </div>
