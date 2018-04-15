@@ -119,6 +119,7 @@ if(!$con){
                             </ul>
                             </li>
                             <li><a href="#">My Orders</a></li>
+                            <li><a href="cart.php">Cart</a></li>
                             <li><a href="profile.php">Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">
@@ -176,6 +177,7 @@ if(!$con){
                             <p class="det">Delivery status : '.$row['delivery'].'</p>
                             <p class="det">Seller : '.$row['seller_fullname'].'</p>
                             <p class="det">Price : Rs.'.$row['buy_price'].'</p>
+                            <p class="det">Transaction id : '.$row['buy_id'].'</p>
                         </div>
                     </div>';
                     if($i!=$num_orders-1)

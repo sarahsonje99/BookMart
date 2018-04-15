@@ -139,6 +139,12 @@ if(!$con){
                                 <li><a href="#">Adventure</a></li>
                             </ul>
                             </li>
+                            <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
+                                <li><a href="orders.php">My Orders</a></li>
+                                <li><a href="cart.php">Cart</a></li>
+                            <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
+                                <a href="shelf.php">My Shelf</a>
+                            <?php endif ?>
                             <li><a href=profile.php>Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">

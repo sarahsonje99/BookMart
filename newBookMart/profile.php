@@ -94,19 +94,18 @@ if(!$con){
                         <ul class="nav navbar-nav" style="text-indent:0%">
                             <li class=""><a href="home.php">Home</a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Thriller</a></li>
-                                <li><a href="#">Classic</a></li>
-                                <li><a href="#">Adventure</a></li>
-                            </ul>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Thriller</a></li>
+                                    <li><a href="#">Classic</a></li>
+                                    <li><a href="#">Adventure</a></li>
+                                </ul>
                             </li>
-                            <li>
-                                <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
-                                    <a href="orders.php">My Orders</a>
-                                <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
-                                    <a href="shelf.php">My Shelf</a>
-                                <?php endif ?>
-                            </li>
+                            <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
+                                <li><a href="orders.php">My Orders</a></li>
+                                <li><a href="cart.php">Cart</a></li>
+                            <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
+                                <li><a href="shelf.php">My Shelf</a></li>
+                            <?php endif ?>
                             <li><a href="profile.php">Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">

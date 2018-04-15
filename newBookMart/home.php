@@ -23,7 +23,7 @@ if(isset($_POST['username'])){
         $row = mysqli_fetch_assoc($result);
         if(!$row) {
             session_destroy();
-            echo "Select appropriate option between Seller or Customer";
+            echo "Select appropriate option between Seller or Customer!";
             exit();
         }
         $_SESSION["username"] = $row["username"];
@@ -227,20 +227,19 @@ if(isset($_POST['username'])){
                                 <li><a href="#">Adventure</a></li>
                             </ul>
                             </li>
-                            <li>
                             <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
-                                <a href="orders.php">My Orders</a>
+                                <li><a href="#">My Orders</a></li>
+                                <li><a href="cart.php">Cart</a></li>
                             <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
-                                <a href="shelf.php">My Shelf</a>
+                                <li><a href="shelf.php">My Shelf</a></li>
                             <?php else: ?>
                                 <li ><a href="#ex1" rel="modal:open"> My Shelf/My Orders</a>
                             <?php endif; ?>
-                            </li>
-                            <li>
                             <?php if ($_SESSION['usertype']) : ?>
-                                <a href="profile.php"> Profile</a></li> 
+                                <li><a href="profile.php"> Profile</a></li>
                             <?php else: ?>
-                                <a href="#ex1" rel="modal:open"> Profile</a>   
+                                <li><a href="#ex1" rel="modal:open">Cart</a></li>
+                                <li><a href="#ex1" rel="modal:open"> Profile</a></li>   
                             <?php endif; ?> 
 
                             
