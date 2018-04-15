@@ -1,5 +1,6 @@
 <?php   
     session_start();
+    error_reporting(0);
     $username = "root";
     $password = "";
     $database = "bookmart";
@@ -132,7 +133,7 @@
                             <a class="navbar-brand" href="#">BookMart</a>
                         </div>
                         <ul class="nav navbar-nav" style="text-indent:0%">
-                            <li class=""><a href="#">Home</a></li>
+                            <li class=""><a href="home.php">Home</a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Thriller</a></li>
@@ -141,24 +142,36 @@
                             </ul>
                             </li>
                             <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
-                                <li><a href="orders.php">My Orders</a></li>
+                                <li><a href="#">My Orders</a></li>
                                 <li><a href="cart.php">Cart</a></li>
                             <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
-                                <a href="shelf.php">My Shelf</a>
-                            <?php endif ?>
-                            <li><a href=profile.php>Profile</a></li>
+                                <li><a href="shelf.php">My Shelf</a></li>
+                            <?php else: ?>
+                                <li ><a href="home.php"> My Shelf/My Orders</a>
+                            <?php endif; ?>
+                            <?php if ($_SESSION['usertype']) : ?>
+                                <li><a href="profile.php"> Profile</a></li>
+                            <?php else: ?>
+                                <li><a href="home.php" >Cart</a></li>
+                                <li><a href="home.php" > Profile</a></li>   
+                            <?php endif; ?>
                         </ul>
                         <form class="navbar-form navbar-left" action="" method = "get">
                             <div class="form-group">
-                              <input type="text" class="form-control" name="searchquery" placeholder="Search">
+                              <input type="text" class="form-control" name="searchquery" placeholder="Search a book!">
                             </div>
                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
-                            <li ><a href="logout.php"> Logout</a>
-                            </li>
+                            <?php if ($_SESSION['username'] && $_SESSION['usertype'] ): ?>
+                                <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
+                                <li ><a  href="logout.php"> Logout</a>
+                                </li> 
+                            <?php else: ?>
+                                <li ><a href="home.php"> Login</a>
+                                </li>   
+                            <?php endif; ?>    
                             <li ><a></a>
                             </li>
                         </ul>

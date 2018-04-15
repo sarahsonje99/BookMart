@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+error_reporting(0);
 $username = "root";
 $password = "";
 $database = "bookmart";
@@ -34,7 +34,7 @@ if(isset($_POST['username'])){
             $_SESSION["user_id"]=$row['seller_id'];
             $_SESSION["usertype"] = "seller";
         } 
-            
+           
         header("Location: home.php");
         exit();
     }
@@ -119,6 +119,7 @@ if(isset($_POST['username'])){
                 padding-top: 12px;
                 width: 240px;
                 border-radius: 5px;
+                border: solid black 0.2px;
             }
             .vertical-dist-between-tiles {
                 height: 500px;
@@ -228,7 +229,7 @@ if(isset($_POST['username'])){
                             </ul>
                             </li>
                             <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
-                                <li><a href="#">My Orders</a></li>
+                                <li><a href="orders.php">My Orders</a></li>
                                 <li><a href="cart.php">Cart</a></li>
                             <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
                                 <li><a href="shelf.php">My Shelf</a></li>
@@ -244,7 +245,7 @@ if(isset($_POST['username'])){
 
                             
                         </ul>
-                        <form class="navbar-form navbar-left" action="booksearch.php" method="post">
+                        <form class="navbar-form navbar-left" action="booksearch.php" method="get">
                             <div class="form-group">
                               <input type="text" class="form-control" name="searchquery" placeholder="Search a book!">
                             </div>
@@ -295,15 +296,21 @@ if(isset($_POST['username'])){
         <div style="background-color: rgb(0, 0, 0); color:rgb(0, 0, 0)">
             
             <div class="container-fluid" id="contain">                
-                <br><br><br>
-                
-                <?php
-                    if($_SESSION['bookNotFound'] == true){
-                        echo '<p style="color:white">Search not found. Please try again.</p>';
-                        $_SESSION['bookNotFound'] = false;
-                    }
-
+                <br><br>
+                <?php 
+                   // $_SESSION['bookNotFound']=true;
                 ?>
+                <?php if($_SESSION['bookNotFound']==true): ?>
+                    <p style="color:white">Search not found. Please try again.</p>
+                    <script>console.log("work");</script>
+                <?php 
+                    $_SESSION['bookNotFound']=false;
+                ?>
+            
+                
+
+                <?php endif?>
+                
                 <h3 style="color: white">Catalogue : </h3>          
                 <br>
                 <?php
@@ -327,25 +334,22 @@ if(isset($_POST['username'])){
                         echo '
                         <form action="book.php" method="get">
                         <div class="col-sm-2 tile" name="bookID" type="submit" value="'.$bid.'" >
-                        <div class="row image">
-                            <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
-                        </div>
-                        <div class = "row desc">
-                            <p class="title">'.($row["book_name"]).'</p>
-                            <p class="det">'.($row["author"]).'</p>
-                            <p class="det">';
-                            for($k=0; $k<$num_genres; $k++) {
-                                $row2 = mysqli_fetch_array($result3);
-                                echo '<span class="tag">'.$row2["genre_name"].'</span>&nbsp;&nbsp;';
-                            }
-                        echo '
-                        </p>
-                        
-                        </div>
-                        
-                        </form>
-                        <button style="width:240px;margin-left:-27px" class="btn btn-primary det" type="submit" name="bookID" value="'.$bid.'">View Book!</button>
-                            
+                            <div class="row image">
+                                <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
+                            </div>
+                            <div class = "row desc">
+                                <p class="title">'.($row["book_name"]).'</p>
+                                <p class="det">'.($row["author"]).'</p>
+                                <p class="det">';
+                                    for($k=0; $k<$num_genres; $k++) {
+                                        $row2 = mysqli_fetch_array($result3);
+                                        echo '<span class="tag">'.$row2["genre_name"].'</span>&nbsp;&nbsp;';
+                                    }
+                                    echo '
+                                </p>
+                            </div>
+                        <button style="width:240px;margin-left:-27px;border: solid black 0.2px; background-color:#1a1a1a" class="btn btn-primary det" type="submit" name="bookID" value="'.$bid.'">View Book!</button>
+                        </form> 
                         </div>
                         ';
                         if($j!=3) {                        

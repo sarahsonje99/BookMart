@@ -87,6 +87,20 @@ if(!$con){
 			.affix + .container-fluid {
      			padding-top: 70px;
  			}
+            #numForm {
+                width: 60px;
+                height: 35px;
+                background-color:inherit;
+                border-radius: 5px;
+            }
+            #avail {
+                height: 35px;
+                background-color:inherit;
+                border-radius: 5px;
+                align: center;
+                margin:10px;
+                margin-top:10px;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -95,10 +109,8 @@ if(!$con){
         
 
         <script>
-        function logoutJS() {
-            console.log("Logged out?");
-            //alert("You have successfully logged out!")
-        }
+       
+
         </script>
     </head>
     <body >    
@@ -181,11 +193,16 @@ if(!$con){
                                     </p>
                             
                             
-                                    <p class="det">Availability : '.$row['availability'].'</p>
+                                    <p class="det">Availability : '.$row['avail'].'</p>
                                     <p class="det">Price : Rs.'.$row['book_cost'].'</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <button>Update Availability</button>
+                                </div>';
+                                
+                                echo ' 
+                                <div class="col-sm-4">
+                                    <form action="updateAvail.php" method="get">
+                                        <input type="number" id="numForm" name="updatedValue" placeholder="">
+                                        <button type="submit" id="avail" name="bookID" value='.$row["book_id"].'>Update Availability</button>
+                                    </form>
                                 </div>
 
 
