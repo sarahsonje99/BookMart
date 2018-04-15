@@ -113,7 +113,9 @@ if(!$con){
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-        
+        <script>
+
+        </script>
     </head>
     <body >  
              
@@ -137,8 +139,7 @@ if(!$con){
                                 <li><a href="#">Adventure</a></li>
                             </ul>
                             </li>
-                            <li><a href="#">Page 2</a></li>
-                            <li><a href="#">Page 3</a></li>
+                            <li><a href=profile.php>Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">
                             <div class="form-group">
@@ -148,9 +149,9 @@ if(!$con){
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                        
-                        <li ><a onclick = logoutJS() href="home.php"> Logout</a>
-                        </li>
+                            <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
+                            <li ><a href="logout.php"> Logout</a>
+                            </li>
                             <li ><a></a>
                             </li>
                         </ul>

@@ -1,3 +1,23 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: home.php');
+}
+elseif($_SESSION['usertype']=='customer'){
+    header('location: home.php');
+}
+
+$username = "root";
+$password = "";
+$database = "bookmart";
+$con = mysqli_connect("localhost",$username,$password,$database);
+if(!$con){
+    die("Connection failed: ".mysqli_connect_error());
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -75,6 +95,10 @@
         
 
         <script>
+        function logoutJS() {
+            console.log("Logged out?");
+            //alert("You have successfully logged out!")
+        }
         </script>
     </head>
     <body >    
@@ -91,7 +115,7 @@
                             <a class="navbar-brand" href="#">BookMart</a>
                         </div>
                         <ul class="nav navbar-nav" style="text-indent:0%">
-                            <li class=""><a href="home.html">Home</a></li>
+                            <li class=""><a href="home.php">Home</a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Thriller</a></li>
@@ -99,8 +123,8 @@
                                 <li><a href="#">Adventure</a></li>
                             </ul>
                             </li>
-                            <li><a href="#">My Orders</a></li>
-                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="#">My Shelf</a></li>
+                            <li><a href="profile.php">Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">
                             <div class="form-group">
@@ -110,7 +134,10 @@
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                            <li ><a>Username</a> </li>
+                            <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
+                            <li >
+                            <a href="logout.php" >Logout</a>
+                            </li>
                             <li ><a></a>
                             </li>
                         </ul>
@@ -119,6 +146,56 @@
             </nav>       
         
             <div class="container" style="border-radius: 5px" >
+                <?php 
+                $sql1 = "SELECT * FROM sells s, book bk, seller sr WHERE sr.seller_id=s.fk_seller_id AND bk.book_id=s.fk_book_id AND sr.seller_id=".$_SESSION['user_id'];
+                $result1 = mysqli_query($con,$sql1);
+                //echo "<h1 style='color:red;'>".$sql1."</h1>";
+                $num_sells = mysqli_num_rows($result1);
+                //echo "<h1 style='color:red;'>".$num_orders."</h1>";
+
+                for($i=0; $i<$num_sells; $i++) {
+                    $row = mysqli_fetch_array($result1);
+                    echo '
+                    <div class="row ">
+                        <br>
+                        <div class="col-sm-2">     
+                            <span><img class="img-responsive image" src = "'.$row['imgUrl'].'"></span>
+                        </div>
+                        <div class="col-sm-10">
+                            <p class="title">'.$row['book_name'].'</p>
+                            <p class="det">'.$row['author'].'</p>
+                            <p class="det">Tags: ';
+                            $sql2 = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+                            //echo "<h1 style='color:white;'>.$sql.</h1>";
+                            $result2 = mysqli_query($con,$sql2);
+                            $num_genres = mysqli_num_rows($result2);
+                            for($k=0; $k<$num_genres; $k++) {
+                                if($k!=0)
+                                    echo ", ";
+                                $row2 = mysqli_fetch_array($result2);
+                                echo $row2["genre_name"];
+                            }
+                            echo '
+                            </p>
+            
+                            
+                            <p class="det">Availability : '.$row['availability'].'</p>
+                            <p class="det">Price : Rs.'.$row['book_cost'].'</p>
+                        </div>
+                    </div>';
+                    if($i!=$num_sells-1)
+                        echo '<hr>';
+                }
+                ?>
+
+
+
+
+
+
+
+<!--
+            
                 <div class="row ">
                     <br>
                     <div class="col-sm-2">     
@@ -146,7 +223,12 @@
                         <p class="det">Tags: Classic, Novel</p>
                         <p class="det">Date of Purchase: 3<sup>rd</sup> April, 2018</p>
                         <p class="det">Delivery status : progress?</p>
-                        <p class="det">Seller : seller1</p>
+                        <p class="det">availability : 5 &nbsp;&nbsp;  
+                            <form>
+                            </form>
+                            
+                        </p>
+                        
                         <p class="det">Price : Rs 348</p>
 
                     </div>
@@ -166,6 +248,7 @@
                         <p class="det">Price : Rs 348</p>    
                     </div>    
                 </div>
+               --> 
             <br>
             </div>
             <br>

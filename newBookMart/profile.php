@@ -1,6 +1,10 @@
 <?php
 
 session_start();
+if (!isset($_SESSION['username'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: home.php');
+}
 
 $username = "root";
 $password = "";
@@ -72,11 +76,6 @@ if(!$con){
         
 
         <script>
-        function logoutJS() {
-            <?php session_destroy(); 
-            console.log("Logged out?"); ?>
-            alert("You have logged out!")
-        }
         </script>
     </head>
     <body >    
@@ -102,8 +101,13 @@ if(!$con){
                             </ul>
                             </li>
                             <li>
-                                <a href="shelf.php">My Orders</a></li>
-                            <li><a href="#">My Profile</a></li>
+                                <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
+                                    <a href="orders.php">My Orders</a>
+                                <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
+                                    <a href="shelf.php">My Shelf</a>
+                                <?php endif ?>
+                            </li>
+                            <li><a href="profile.php">Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">
                             <div class="form-group">
@@ -113,8 +117,11 @@ if(!$con){
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                        <li ><a onclick = logoutJS() href="home.php"> Logout</a>
-                        </li>
+                            <?php if ($_SESSION['usertype'] ): ?>
+                                <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
+                            <?php endif ?>
+                            <li ><a href="logout.php"> Logout</a>
+                            </li>
                             <li ><a></a>
                             </li>
                         </ul>

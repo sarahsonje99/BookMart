@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
+
 $username = "root";
 $password = "";
 $database = "bookmart";
@@ -16,21 +17,34 @@ if(isset($_POST['username'])){
         $sql = "SELECT * FROM seller WHERE username='".$uname."' AND password='".$pass."' limit 1";
     else if ($_POST['isSeller'] == 'false')
         $sql = "SELECT * FROM customer WHERE username='".$uname."' AND password='".$pass."' limit 1";
+    
     $result = mysqli_query($con,$sql);
     if(!empty($result)){
         $row = mysqli_fetch_assoc($result);
+        if(!$row) {
+            session_destroy();
+            echo "Select appropriate option between Seller or Customer";
+            exit();
+        }
         $_SESSION["username"] = $row["username"];
-        if($_POST['isSeller'] == 'false')
+        if($_POST['isSeller'] == 'false') {
+            $_SESSION["user_id"]=$row['customer_id'];
             $_SESSION["usertype"] = "customer";
-        else if($_POST["isSeller"] == 'true')  
+        }  
+        else if($_POST["isSeller"] == 'true') {
+            $_SESSION["user_id"]=$row['seller_id'];
             $_SESSION["usertype"] = "seller";
+        } 
+            
         header("Location: home.php");
         exit();
     }
-    else{
+    else {
+        session_destroy();
         echo "Incorrect Login Details";
         exit();
     }
+    
 
 }
 
@@ -175,12 +189,6 @@ if(isset($_POST['username'])){
         
 
         <script>
-        function logoutJS() {
-            <?php session_destroy(); 
-            console.log("Logged out?");
-            header('location: home.php'); ?>
-            alert("You have logged out!")
-        }
         $(document).ready(function () {
             $('a.open-modal').click(function (event) {
                 $(this).modal({
@@ -220,10 +228,10 @@ if(isset($_POST['username'])){
                             </ul>
                             </li>
                             <li>
-                            <?php if($_SESSION['usertype'] == "customer"): ?>
+                            <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
                                 <a href="orders.php">My Orders</a>
-                            <?php elseif($_SESSION['usertype'] == "seller"): ?>
-                                <a href="shelf.php">My Shelfs</a>
+                            <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
+                                <a href="shelf.php">My Shelf</a>
                             <?php else: ?>
                                 <li ><a href="#ex1" rel="modal:open"> My Shelf/My Orders</a>
                             <?php endif; ?>
@@ -245,9 +253,9 @@ if(isset($_POST['username'])){
                             </button>
                           </form>
                         <ul class="nav navbar-nav navbar-right">
-                            <?php if ($_SESSION['usertype'] ): ?>
+                            <?php if ($_SESSION['username'] && $_SESSION['usertype'] ): ?>
                                 <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
-                                <li ><a onclick = logoutJS() href="home.php"> Logout</a>
+                                <li ><a  href="logout.php"> Logout</a>
                                 </li> 
                             <?php else: ?>
                                 <li ><a href="#ex1" id="a.open-modal" rel="modal:open"> Login</a>
