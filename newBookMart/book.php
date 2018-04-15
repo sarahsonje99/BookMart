@@ -7,8 +7,8 @@
     if(!$con){
         die("Connection failed: ".mysqli_connect_error());
     }
-    $b_id = $_POST['bookid'];
-    // $b_id = 14;
+    // $b_id = $_POST['bookid'];
+    $b_id = $_SESSION['bid'];
     $sql = "SELECT * FROM book WHERE book_id='".$b_id."'";
     $result = mysqli_query($con,$sql);
     if(!empty($result)){

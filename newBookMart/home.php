@@ -1,6 +1,5 @@
 
 <?php
-error_reporting(0);
 session_start();
 $username = "root";
 $password = "";
@@ -182,12 +181,6 @@ if(isset($_POST['username'])){
         
 
         <script>
-        function logoutJS() {
-            <?php session_destroy(); 
-            console.log("Logged out?");
-            header('location: home.php'); ?>
-            alert("You have logged out!")
-        }
         $(document).ready(function () {
             $('a.open-modal').click(function (event) {
                 $(this).modal({
@@ -197,11 +190,7 @@ if(isset($_POST['username'])){
             });
         });
 
-        function viewDet(){
-            var bookid = 12;
-            $.post('book.php',{bookid});
-            document.location.href='book.php';
-        }
+        
         </script>
     </head>
     <body >    
@@ -254,10 +243,10 @@ if(isset($_POST['username'])){
                         <ul class="nav navbar-nav navbar-right">
                             <?php if ($_SESSION['usertype'] ): ?>
                                 <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
-                                <li ><a onclick = logoutJS() href="home.php"> Logout</a>
+                                <li ><a> Logout</a>
                                 </li> 
                             <?php else: ?>
-                                <li ><a href="#ex1" id="a.open-modal" rel="modal:open"> Login</a>
+                                <li ><a href="#ex1" rel="modal:open"> Login</a>
                                 </li>   
                             <?php endif; ?>                            
                             <li ><a></a>
@@ -299,7 +288,7 @@ if(isset($_POST['username'])){
                 <br>
                 <div class="row vertical-dist-between-tiles">
                 
-                    <div class="col-sm-2 tile" onClick="viewDet();" >
+                    <div class="col-sm-2 tile" >
                         <div class="row image">
                             <span><img class="img-responsive" style="width:100%; height: 100%;" src = "https://resizing.flixster.com/7-QFEH63yycuAzN5jjo6fevs0qg=/206x305/v1.bTsxMTIwOTQ2MDtqOzE3NzI0OzEyMDA7MzMxODs0NDI0"></span>
                         </div>
@@ -308,6 +297,9 @@ if(isset($_POST['username'])){
                             <p class="det">Dan Brown</p>
                             <p class="det"><span class="tag">Thriller</span>&nbsp;&nbsp;<span class="tag">Novel</span></p>        
                         </div>
+                        <form action="book.php" method="get" >
+                            <button type="submit" >View</button>
+                        </form>
                     </div>
                     <div class="col-sm-1 blank"></div>
             
@@ -364,5 +356,13 @@ if(isset($_POST['username'])){
                 </div>    
             </div>
         </div>
+        <script>
+            function passbid(){
+                <?php 
+                    $_SESSION['bid'] = 12;
+                ?>
+            }
+        </script>
+        
     </body>
 </html>
