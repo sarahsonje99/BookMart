@@ -4,7 +4,7 @@ if (!isset($_SESSION['username'])) {
     $_SESSION['msg'] = "You must log in first";
     header('location: home.php');
 }
-elseif($_SESSION['usertype']=='customer'){
+elseif($_SESSION['usertype']=='seller'){
     header('location: home.php');
 }
 
@@ -16,7 +16,6 @@ if(!$con){
     die("Connection failed: ".mysqli_connect_error());
 }
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -74,7 +73,7 @@ if(!$con){
                 padding:12px;
             }
             .title{
-                font-size:20px;
+                font-size:18px;
             }     
             .det{
                 font-size:14px;
@@ -87,19 +86,17 @@ if(!$con){
 			.affix + .container-fluid {
      			padding-top: 70px;
  			}
-            #numForm {
-                width: 60px;
-                height: 35px;
-                background-color:inherit;
-                border-radius: 5px;
+            #placeOrder {
+                color: black;
+                background-color: inherit;
+                border: solid black 1px;
+                border-radius:3px;
+                height: 50px;
+                width: 120px;
             }
-            #avail {
-                height: 35px;
-                background-color:inherit;
-                border-radius: 5px;
-                align: center;
-                margin:10px;
-                margin-top:10px;
+            #placeOrder:hover{
+                color:white;
+                background-color:black;
             }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -109,8 +106,10 @@ if(!$con){
         
 
         <script>
-       
-
+        function myFunction() {
+            console.log("Dude!");
+                                alert("Your order will be processed shortly!");
+                            }
         </script>
     </head>
     <body >    
@@ -135,7 +134,8 @@ if(!$con){
                                 <li><a href="#">Adventure</a></li>
                             </ul>
                             </li>
-                            <li><a href="#">My Shelf</a></li>
+                            <li><a href="orders.php">My Orders</a></li>
+                            <li><a href="#">Cart</a></li>
                             <li><a href="profile.php">Profile</a></li>
                         </ul>
                         <form class="navbar-form navbar-left" action="">
@@ -147,9 +147,7 @@ if(!$con){
                           </form>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
-                            <li >
-                            <a href="logout.php" >Logout</a>
-                            </li>
+                            <li ><a href="logout.php"> Logout</a>
                             <li ><a></a>
                             </li>
                         </ul>
@@ -158,14 +156,16 @@ if(!$con){
             </nav>       
         
             <div class="container" style="border-radius: 5px" >
-                <?php 
-                $sql1 = "SELECT * FROM sells s, book bk, seller sr WHERE sr.seller_id=s.fk_seller_id AND bk.book_id=s.fk_book_id AND sr.seller_id=".$_SESSION['user_id'];
+
+
+            <?php 
+                $sql1 = "SELECT * FROM booktocart bc, customer c, book b, sells s, seller sr WHERE s.fk_seller_id=sr.seller_id AND b.book_id=s.fk_book_id AND s.sells_id=bc.fk_sells_id AND c.customer_id=bc.fk_customer_id AND c.customer_id=".$_SESSION['user_id'];
                 $result1 = mysqli_query($con,$sql1);
                 //echo "<h1 style='color:red;'>".$sql1."</h1>";
-                $num_sells = mysqli_num_rows($result1);
+                $num_orders = mysqli_num_rows($result1);
                 //echo "<h1 style='color:red;'>".$num_orders."</h1>";
 
-                for($i=0; $i<$num_sells; $i++) {
+                for($i=0; $i<$num_orders; $i++) {
                     $row = mysqli_fetch_array($result1);
                     echo '
                     <div class="row ">
@@ -174,54 +174,31 @@ if(!$con){
                             <span><img class="img-responsive image" src = "'.$row['imgUrl'].'"></span>
                         </div>
                         <div class="col-sm-10">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <p class="title">'.$row['book_name'].'</p>
-                                    <p class="det">'.$row['author'].'</p>
-                                    <p class="det">Tags: ';
-                                    $sql2 = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
-                                    //echo "<h1 style='color:white;'>.$sql.</h1>";
-                                    $result2 = mysqli_query($con,$sql2);
-                                    $num_genres = mysqli_num_rows($result2);
-                                    for($k=0; $k<$num_genres; $k++) {
-                                        if($k!=0)
-                                            echo ", ";
-                                        $row2 = mysqli_fetch_array($result2);
-                                        echo $row2["genre_name"];
-                                    }
-                                    echo '
-                                    </p>
-                            
-                            
-                                    <p class="det">Availability : '.$row['avail'].'</p>
-                                    <p class="det">Price : Rs.'.$row['book_cost'].'</p>
-                                </div>';
-                                
-                                echo ' 
-                                <div class="col-sm-4">
-                                    <form action="updateAvail.php" method="get">
-                                        <input type="number" id="numForm" name="updatedValue" placeholder="">
-                                        <button type="submit" id="avail" name="bookID" value='.$row["book_id"].'>Update Availability</button>
-                                    </form>
-                                </div>
-
-
-                            </div>
+                            <p class="title">'.$row['book_name'].'</p>
+                            <p class="det">'.$row['author'].'</p>
+                            <p class="det">Tags: ';
+                            $sql2 = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+                            //echo "<h1 style='color:white;'>.$sql.</h1>";
+                            $result2 = mysqli_query($con,$sql2);
+                            $num_genres = mysqli_num_rows($result2);
+                            for($k=0; $k<$num_genres; $k++) {
+                                if($k!=0)
+                                    echo ", ";
+                                $row2 = mysqli_fetch_array($result2);
+                                echo $row2["genre_name"];
+                            }
+                            echo '
+                            </p>
+                            <p class="det">Seller : '.$row['seller_fullname'].'</p>
+                            <p class="det">Price : Rs.'.$row['book_cost'].'</p>
+                            <p class="det">Availability : '.$row['availability'].'</p>
                         </div>
                     </div>';
-                    if($i!=$num_sells-1)
+                    if($i!=$num_orders-1)
                         echo '<hr>';
                 }
-                ?>
-
-
-
-
-
-
-
+            ?>
 <!--
-            
                 <div class="row ">
                     <br>
                     <div class="col-sm-2">     
@@ -249,12 +226,7 @@ if(!$con){
                         <p class="det">Tags: Classic, Novel</p>
                         <p class="det">Date of Purchase: 3<sup>rd</sup> April, 2018</p>
                         <p class="det">Delivery status : progress?</p>
-                        <p class="det">availability : 5 &nbsp;&nbsp;  
-                            <form>
-                            </form>
-                            
-                        </p>
-                        
+                        <p class="det">Seller : seller1</p>
                         <p class="det">Price : Rs 348</p>
 
                     </div>
@@ -274,8 +246,15 @@ if(!$con){
                         <p class="det">Price : Rs 348</p>    
                     </div>    
                 </div>
-               --> 
-            <br>
+                -->
+                <br>
+                <div class="row">
+                    <div class="col-sm-10">
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="placeOrder" onclick="myFunction()" >Place Order</button>
+                    </div>
+                </div>
             </div>
             <br>
         </div>
