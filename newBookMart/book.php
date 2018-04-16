@@ -1,6 +1,5 @@
 <?php   
     session_start();
-    error_reporting(0);
     $username = "root";
     $password = "";
     $database = "bookmart";
@@ -9,7 +8,17 @@
         die("Connection failed: ".mysqli_connect_error());
     }
 
-?>
+/*
+                            if(isset($_POST['addtocart_sells'])){
+                                $sells_id = $_POST['addtocart_sells'];
+                                $sql3 = "INSERT INTO booktocart(fk_customer_id, fk_sells_id) VALUES (".($_SESSION["user_id"]).",".$sells_id.")";
+                                echo $sql3;
+                                exit();
+                                $result5 = mysqli_query($con, $sql3);
+                                echo 'Added Successfully!';
+                            }*/
+                        
+                        ?>
 
 <!DOCTYPE html>
 <html>
@@ -65,7 +74,8 @@
             }
             img {
                 /* width:200px; */
-                height:235px;
+                height:300px;
+                width: 
             }  
             hr {
                 width:90%;
@@ -277,21 +287,12 @@
                             }
                         ?>
                         
-                        <!-- <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br> -->
-                        <br>
+                            <!-- <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br> -->
+                            <br>
 
-                        
                         <button type="submit" class="but" >Add To Cart </button>
                         </form>
-                        <?php 
-                            if(isset($_POST['seller'])){
-                                $sells_id = $_POST['seller'];
-                                $sql3 = "INSERT INTO booktocart(fk_customer_id, fk_sells_id) VALUES (".($_SESSION["user_id"]).",".$sells_id.")";
-                                $result5 = mysqli_query($con, $sql3);
-                                echo 'Added Successfully!';
-                            }
                         
-                        ?>
                     </div>   
                 </div> 
             </div>

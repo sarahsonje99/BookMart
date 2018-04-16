@@ -130,25 +130,53 @@ if(!$con){
         </div>
         <div class="container" style="border-radius:5px;" >
             <div class="row" style="margin-left: 20px; margin-bottom: 10px; ">
-            	<h1>Username</h1>
-            	<h3>Email Adderess</h3> 
-            	<span class="fa fa-star checked"></span>
+             <?php  
+                if($_SESSION['usertype'] == "customer"){
+                    $sql = "SELECT * FROM customer WHERE customer_id = ".$_SESSION['user_id'];
+                }
+                else{
+                    $sql = "SELECT * FROM seller WHERE seller_id = ".$_SESSION['user_id'];
+                }
+                    $result = mysqli_query($con, $sql);
+                    if(!empty($result)){
+                        $row = mysqli_fetch_assoc($result);
+                    }        
+             ?>
+
+
+
+                <div class="col-sm-6">
+            	<h1><?php echo $row['fullname'];?></h1>
+                <br>
+                <h4><?php echo 'Username: '.$row['username']; ?></h4>
+                <br>
+                <h4><?php echo 'Email:    '.$row['email'];   ?></h4> 
+            	<!-- <span class="fa fa-star checked"></span>
             	<span class="fa fa-star checked"></span>
             	<span class="fa fa-star checked"></span>
             	<span class="fa fa-star"></span>
-            	<span class="fa fa-star"></span>
-            	<br><br>
-            	<div id="points">
-            		<h5><b>Points: 1000 Rs.</b></h5>
-            	</div> <br>
+            	<span class="fa fa-star"></span> -->
+            	<br>
+                
+                </div>
+            	<br>
+                <div class="col-sm-6">
             	<p style="margin-left: 2px">
             		<b style="font-size: 20px">Address:</b><br>
-            		345, dyhj, ftrhy, rh<br>
-            		Pincode: 400 035
+            		<?php echo $row['address']; ?>
             	</p>
-            	<p>jutrg<br><br>
-            	Info 1<br>
-            	Info 2<br>
+                <br><br>
+                <?php if ($_SESSION['usertype'] == "customer"){
+                    echo '<div id="points">
+            		<h5><b>Points: Rs. '.($row['points']).'</b></h5>
+                </div> ';
+                }
+                else{
+                    echo '<p> Rating : '.$row['seller_rating'].'</p>';
+                }
+                ?>
+                </div>
+            	
             </div>
         </div>
         <br>

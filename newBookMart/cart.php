@@ -98,6 +98,14 @@ if(!$con){
                 color:white;
                 background-color:black;
             }
+            #remove {
+                height: 35px;
+                background-color:inherit;
+                border-radius: 5px;
+                align: center;
+                margin:10px;
+                margin-top:10px;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -159,7 +167,7 @@ if(!$con){
 
 
             <?php 
-                $sql1 = "SELECT * FROM booktocart bc, customer c, book b, sells s, seller sr WHERE s.fk_seller_id=sr.seller_id AND b.book_id=s.fk_book_id AND s.sells_id=bc.fk_sells_id AND c.customer_id=bc.fk_customer_id AND c.customer_id=".$_SESSION['user_id'];
+                $sql1 = "SELECT * FROM booktocart bc, customer c, book b, sells s, seller sr WHERE bc.in_buys=0 AND s.fk_seller_id=sr.seller_id AND b.book_id=s.fk_book_id AND s.sells_id=bc.fk_sells_id AND c.customer_id=bc.fk_customer_id AND c.customer_id=".$_SESSION['user_id'];
                 $result1 = mysqli_query($con,$sql1);
                 //echo "<h1 style='color:red;'>".$sql1."</h1>";
                 $num_orders = mysqli_num_rows($result1);
@@ -174,24 +182,36 @@ if(!$con){
                             <span><img class="img-responsive image" src = "'.$row['imgUrl'].'"></span>
                         </div>
                         <div class="col-sm-10">
-                            <p class="title">'.$row['book_name'].'</p>
-                            <p class="det">'.$row['author'].'</p>
-                            <p class="det">Tags: ';
-                            $sql2 = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
-                            //echo "<h1 style='color:white;'>.$sql.</h1>";
-                            $result2 = mysqli_query($con,$sql2);
-                            $num_genres = mysqli_num_rows($result2);
-                            for($k=0; $k<$num_genres; $k++) {
-                                if($k!=0)
-                                    echo ", ";
-                                $row2 = mysqli_fetch_array($result2);
-                                echo $row2["genre_name"];
-                            }
-                            echo '
-                            </p>
-                            <p class="det">Seller : '.$row['seller_fullname'].'</p>
-                            <p class="det">Price : Rs.'.$row['book_cost'].'</p>
-                            <p class="det">Availability : '.$row['availability'].'</p>
+                            <div class="row" style="">
+                                <div class="col-sm-8">
+                                    <p class="title">'.$row['book_name'].'</p>
+                                    <p class="det">'.$row['author'].'</p>
+                                    <p class="det">Tags: ';
+                                    $sql2 = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+                                    //echo "<h1 style='color:white;'>.$sql.</h1>";
+                                    $result2 = mysqli_query($con,$sql2);
+                                    $num_genres = mysqli_num_rows($result2);
+                                    for($k=0; $k<$num_genres; $k++) {
+                                        if($k!=0)
+                                        echo ", ";
+                                        $row2 = mysqli_fetch_array($result2);
+                                        echo $row2["genre_name"];
+                                    }
+                                    echo '
+                                    </p>
+                                    <p class="det">Seller : '.$row['fullname'].'</p>
+                                    <p class="det">Price : Rs.'.$row['book_cost'].'</p>
+                                    <p class="det">Availability : '.$row['avail'].'</p>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <form action="removeFromCart.php" method="post">
+                                        <button type="submit" id="remove" name="bookcartID" value='.$row["booktocart_id"].'>Remove from cart</button>
+                                    </form>
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>';
                     if($i!=$num_orders-1)
@@ -252,12 +272,20 @@ if(!$con){
                     <div class="col-sm-10">
                     </div>
                     <div class="col-sm-2">
-                        <button id="placeOrder" onclick="myFunction()" >Place Order</button>
+
+
+                    
                     </div>
                 </div>
             </div>
-            <br>
+                <br><br>
+            <form action="placeOrder.php" method="post">
+                <button style="width:40%;margin-left:30%;margin-bottom:20px" class="col-sm-12 btn btn-lg btn-primary" >Place Order</button>
+            </form>        
+            <br><br>
         </div>
+
+        
         
     </body>
 </html>
