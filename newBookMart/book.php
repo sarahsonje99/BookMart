@@ -74,7 +74,8 @@
             }
             img {
                 /* width:200px; */
-                height:235px;
+                height:300px;
+                width: 
             }  
             hr {
                 width:90%;
@@ -275,9 +276,8 @@
                         <p><strong>Select a Seller:</strong> </p>
                         <script>
                         function addtocart() { 
-                            
                             alert('Added to cart successfully'); 
-                            }
+                        }
                         </script>
                         <form method="post" onsubmit="addtocart()" action="addToCart.php">
                             <?php 

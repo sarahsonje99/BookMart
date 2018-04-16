@@ -86,6 +86,14 @@ if(!$con){
 			.affix + .container-fluid {
      			padding-top: 70px;
  			}
+            #return {
+                height: 35px;
+                background-color:inherit;
+                border-radius: 5px;
+                align: center;
+                margin:10px;
+                margin-top:10px;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -158,26 +166,54 @@ if(!$con){
                             <span><img class="img-responsive image" src = "'.$row['imgUrl'].'"></span>
                         </div>
                         <div class="col-sm-10">
-                            <p class="title">'.$row['book_name'].'</p>
-                            <p class="det">'.$row['author'].'</p>
-                            <p class="det">Tags: ';
-                            $sql2 = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
-                            //echo "<h1 style='color:white;'>.$sql.</h1>";
-                            $result2 = mysqli_query($con,$sql2);
-                            $num_genres = mysqli_num_rows($result2);
-                            for($k=0; $k<$num_genres; $k++) {
-                                if($k!=0)
-                                    echo ", ";
-                                $row2 = mysqli_fetch_array($result2);
-                                echo $row2["genre_name"];
-                            }
-                            echo '
-                            </p>
-                            <p class="det">Date of Purchase: '.$row['day'].'</p>
-                            <p class="det">Delivery status : '.$row['delivery'].'</p>
-                            <p class="det">Seller : '.$row['seller_fullname'].'</p>
-                            <p class="det">Price : Rs.'.$row['buy_price'].'</p>
-                            <p class="det">Transaction id : '.$row['buy_id'].'</p>
+                            <div class="row" style="margin-top:-17px;">
+                                <div class="col-sm-8">
+                                    <p class="title">'.$row['book_name'].'</p>
+                                    <p class="det">'.$row['author'].'</p>
+                                    <p class="det">Tags: ';
+                                    $sql2 = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
+                                    //echo "<h1 style='color:white;'>.$sql.</h1>";
+                                    $result2 = mysqli_query($con,$sql2);
+                                    $num_genres = mysqli_num_rows($result2);
+                                    for($k=0; $k<$num_genres; $k++) {
+                                        if($k!=0)
+                                            echo ", ";
+                                        $row2 = mysqli_fetch_array($result2);
+                                        echo $row2["genre_name"];
+                                    }
+                                    echo '
+                                    </p>
+                                    <p class="det">Date of Purchase: '.$row['day'].'</p>
+                                    <p class="det">Delivery status : '.$row['delivery'].'</p>
+                                    <p class="det">Seller : '.$row['seller_fullname'].'</p>
+                                    <p class="det">Price : Rs.'.$row['buy_price'].'</p>
+                                    <p class="det">Transaction ID : '.$row['buy_id'].'</p>
+                                </div>
+                                <div class="col-sm-4">';
+
+                                    $sql3 = "SELECT * FROM returned r WHERE r.fk_buy_id=".$row['buy_id'];
+                                    $result3 = mysqli_query($con,$sql3);
+                                    $num_returns = mysqli_num_rows($result3);
+                                    if($num_returns==0) {
+                                        echo '
+                                        <form action="bookReturn.php" method="post">
+                                            <button type="submit" id="return" name="buyID" value='.$row["buy_id"].'>Return Order</button>
+                                        </form>';
+                                    }
+                                    else {
+                                        $row3 = mysqli_fetch_array($result3);
+                                        echo '
+                                        <br><br>
+                                        <p>Returned Successfully</p>
+                                        <p>Date: '.$row3['day'].'</p>
+                                        <p>Transaction ID: '.$row3['return_id'].'</p>';
+                                    }
+                                    echo '
+                                </div>
+                                
+
+
+                            </div>
                         </div>
                     </div>';
                     if($i!=$num_orders-1)
