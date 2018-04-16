@@ -271,7 +271,7 @@
                             $num_sellers = mysqli_num_rows($result4);
                             for($i=0;$i<$num_sellers;$i++){
                                 $row = mysqli_fetch_assoc($result4);
-                                echo '<div class="row"><span class="col-sm-2"><input  type = "radio" name="seller" value="'.($row["sells_id"]).'">&nbsp;&nbsp;'.($row["seller_fullname"]).'</span>';
+                                echo '<div class="row"><label class="col-sm-2"><input  type = "radio" name="seller" value="'.($row["sells_id"]).'">&nbsp;&nbsp;'.($row["seller_fullname"]).'</label>';
                                 echo '<span class="col-sm-2"> Rating: '.($row['seller_rating']).'</span></div>';
                                 echo '<br>';
                             }

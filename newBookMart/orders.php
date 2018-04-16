@@ -86,6 +86,10 @@ if(!$con){
 			.affix + .container-fluid {
      			padding-top: 70px;
  			}
+            
+            #genreForm {
+                text-align: center;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -93,7 +97,20 @@ if(!$con){
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
         
 
-        <script>
+  
+
+<script type="text/javascript">
+function submitform()
+{
+document.forms["genreForm"].submit();
+alert("Value is sumitted");
+}
+
+
+
+
+</script>
+
         </script>
     </head>
     <body >    
@@ -111,11 +128,36 @@ if(!$con){
                         </div>
                         <ul class="nav navbar-nav" style="text-indent:0%">
                             <li class=""><a href="home.php">Home</a></li>
+                            
+                            <!-- genre search -->
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Thriller</a></li>
-                                <li><a href="#">Classic</a></li>
-                                <li><a href="#">Adventure</a></li>
+                            <li>
+                                <form id="genreForm" action="changeGenre.php" method="post">
+                                    <input type="hidden" value="1" name="genreq">
+                                    <a style="text-decoration:none;" href="javascript: submitform()">Fiction</a>
+                                </form>
+                            </li>
+                            <li>
+                                <form id="genreForm" action="changeGenre.php" method="post">
+                                    <input type="hidden" value="2" name="genreq">
+                                    <a  href="javascript: submitform()">Thriller</a>
+                                </form>
+                            </li>
+                            <li>
+                                <form id="genreForm" action="changeGenre.php" method="post">
+                                    <input type="hidden" value="3" name="genreq">
+                                    <a  href="javascript: submitform()">Classis</a>
+                                </form>
+                            </li>
+                            <li>
+                                <form id="genreForm" action="changeGenre.php" method="post">
+                                    <input type="hidden" value="4" name="genreq">
+                                    <a  href="javascript: submitform()">Novel</a>
+                                </form>
+                            </li>
+
+
                             </ul>
                             </li>
                             <li><a href="#">My Orders</a></li>
@@ -237,6 +279,6 @@ if(!$con){
             </div>
             <br>
         </div>
-        
+
     </body>
 </html>
