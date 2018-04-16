@@ -199,7 +199,7 @@ if(!$con){
                                     }
                                     echo '
                                     </p>
-                                    <p class="det">Seller : '.$row['seller_fullname'].'</p>
+                                    <p class="det">Seller : '.$row['fullname'].'</p>
                                     <p class="det">Price : Rs.'.$row['book_cost'].'</p>
                                     <p class="det">Availability : '.$row['avail'].'</p>
                                 </div>
