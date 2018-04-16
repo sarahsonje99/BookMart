@@ -100,7 +100,7 @@ if(isset($_POST['username'])){
                 height:120px;
             }
             #contain{
-                width: 1300px;
+                width: 100%;
                 padding-left: 100px;
             }
             al{
@@ -121,12 +121,13 @@ if(isset($_POST['username'])){
                 width: 240px;
                 border-radius: 5px;
                 border: solid black 0.2px;
+                border-bottom: 0.5px;
             }
             .vertical-dist-between-tiles {
                 height: 500px;
             }
             .blank{
-                width:60px;
+                width:30px;
             }
             .modal a.close-modal {
                 visibility: hidden;
@@ -181,11 +182,14 @@ if(isset($_POST['username'])){
 			.affix + .container-fluid {
      			padding-top: 70px;
  			}
-             .btn{
+            .btn{
                 border-top-left-radius:0px;  
                 border-top-right-radius:0px;  
 
-             }
+            }
+            .btn:hover{  
+                shadow: 10px;
+            }
             
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -203,7 +207,9 @@ if(isset($_POST['username'])){
                 return false;
             });
         });
-
+        function submitform() {
+            document.forms["genreForm"].submit();
+        }
         </script>
     </head>
     <body > 
@@ -226,7 +232,8 @@ if(isset($_POST['username'])){
                             <ul class="dropdown-menu">
                                 <li>
                                     <form id="genreForm" action="changeGenre.php" method="post">
-                                        <a name="query" href="javascript: submitform()">Fiction</a>
+                                        <input type="hidden" value="1" name="genreq">
+                                        <a style="text-decoration:none;" href="javascript: submitform()">Fiction</a>
                                     </form>
                                 </li>
                                 <li><a >Thriller</a></li>
@@ -318,8 +325,7 @@ if(isset($_POST['username'])){
 
                 
                 <?php if($_SESSION["genre"]!="10"): ?>
-                    <div id="noGen">
-                        
+                    <div>
                         <br>
                         <?php
                             $sql4 = "SELECT * FROM genre WHERE genre_id=".$_SESSION["genre"];
@@ -378,20 +384,20 @@ if(isset($_POST['username'])){
                             ';
                             }
                         ?>
-                    </div>
-                            
+                    </div>      
                     <?php $_SESSION["genre"]="10"; ?>
                 <?php else: ?>
-                    <div id="noGen">
+                    <div>
                         <br>
                         <?php
                             $sql2 = "SELECT * FROM book ";
                             $result2 = mysqli_query($con,$sql2);
                             $num_books = mysqli_num_rows($result2);
+                            echo '<h3 style="color: white">Catalogue: </h3>';  
                             for ($i=0; $i<$num_books; )
                             {
                                 //echo "<h1 style='color:white;'>hiii</h1>";
-                                echo '<h3 style="color: white">Catalogue: </h3>';        
+                                      
                                 echo '                                
                                     <div class="row vertical-dist-between-tiles">';
                                 for($j=0 ;$j<4 && $i<$num_books; $j++, $i++ ){
@@ -434,7 +440,7 @@ if(isset($_POST['username'])){
                             ';
                             }
                         ?>
-                    </div>              
+                    </div>          
                 <?php endif ?>
             </div>
         </div>   

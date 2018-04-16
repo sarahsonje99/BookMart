@@ -114,10 +114,9 @@ if(!$con){
         
 
         <script>
-        function myFunction() {
-            console.log("Dude!");
-                                alert("Your order will be processed shortly!");
-                            }
+        function myFunc() {
+            alert("Successfully placed order!");
+        }
         </script>
     </head>
     <body >    
@@ -172,7 +171,8 @@ if(!$con){
                 //echo "<h1 style='color:red;'>".$sql1."</h1>";
                 $num_orders = mysqli_num_rows($result1);
                 //echo "<h1 style='color:red;'>".$num_orders."</h1>";
-
+                if($num_orders == 0)
+                    echo '<div style="text-align:center;"><h2 >Your cart is empty! <a href="home.php" style=" text-decoration=none;">&nbsp;Add books</h2></div>';
                 for($i=0; $i<$num_orders; $i++) {
                     $row = mysqli_fetch_array($result1);
                     echo '
@@ -199,7 +199,7 @@ if(!$con){
                                     }
                                     echo '
                                     </p>
-                                    <p class="det">Seller : '.$row['fullname'].'</p>
+                                    <p class="det">Seller : '.$row['seller_fullname'].'</p>
                                     <p class="det">Price : Rs.'.$row['book_cost'].'</p>
                                     <p class="det">Availability : '.$row['avail'].'</p>
                                 </div>
@@ -278,10 +278,12 @@ if(!$con){
                     </div>
                 </div>
             </div>
-                <br><br>
-            <form action="placeOrder.php" method="post">
+            <br><br>
+            <?php if($num_orders!=0): ?>  
+            <form action="placeOrder.php" method="post" onsubmit="myFunc()">
                 <button style="width:40%;margin-left:30%;margin-bottom:20px" class="col-sm-12 btn btn-lg btn-primary" >Place Order</button>
-            </form>        
+            </form>
+            <?php endif ?>        
             <br><br>
         </div>
 

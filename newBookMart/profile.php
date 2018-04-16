@@ -146,7 +146,11 @@ if(!$con){
 
 
                 <div class="col-sm-6">
-            	<h1><?php echo $row['fullname'];?></h1>
+                <?php if($_SESSION['usertype'] == "customer"): ?>
+            	    <h1><?php echo $row['customer_fullname'];?></h1>
+                <?php elseif($_SESSION['usertype'] == "seller"): ?>
+            	    <h1><?php echo $row['seller_fullname'];?></h1>
+                <?php endif ?>
                 <br>
                 <h4><?php echo 'Username: '.$row['username']; ?></h4>
                 <br>

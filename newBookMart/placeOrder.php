@@ -32,7 +32,9 @@ if($_SESSION['user_id']){
     for( $i=0; $i<$num_books; $i++)
     {
         $row1 = mysqli_fetch_array($result1);
-
+        $newAvail = $row1['avail']-1;
+        $sql4 = "UPDATE sells SET avail = ".$newAvail." WHERE sells_id=".$row1['sells_id'];
+        $result4 = mysqli_query($con,$sql4);
         $sql3 = "INSERT INTO buys(fk_booktocart_id, buy_price ) VALUES (".($row1["booktocart_id"]).", ".$row1['book_cost'].")";
         echo $sql3;
         $result3 = mysqli_query($con,$sql3);

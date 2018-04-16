@@ -194,7 +194,9 @@ alert("Value is sumitted");
                 //echo "<h1 style='color:red;'>".$sql1."</h1>";
                 $num_orders = mysqli_num_rows($result1);
                 //echo "<h1 style='color:red;'>".$num_orders."</h1>";
-
+                if($num_orders == 0)
+                echo '<div style="text-align:center;"><h2 >You have not placed any orers yet. <a href="cart.php.php" style=" text-decoration=none;">&nbsp;Buy books</h2></div>';
+           
                 for($i=0; $i<$num_orders; $i++) {
                     $row = mysqli_fetch_array($result1);
                     echo '
@@ -208,7 +210,7 @@ alert("Value is sumitted");
                                 <div class="col-sm-8">
                                     <p class="title">'.$row['book_name'].'</p>
                                     <p class="det">'.$row['author'].'</p>
-                                    <p class="det">Tags: ';
+                                    <p class="det">Genre: ';
                                     $sql2 = "SELECT * FROM hasgenre h, genre g WHERE h.fk_genre_id=g.genre_id AND h.fk_book_id = ".$row['book_id'];
                                     //echo "<h1 style='color:white;'>.$sql.</h1>";
                                     $result2 = mysqli_query($con,$sql2);
@@ -222,10 +224,10 @@ alert("Value is sumitted");
                                     echo '
                                     </p>
                                     <p class="det">Date of Purchase: '.$row['day'].'</p>
-                                    <p class="det">Delivery status : '.$row['delivery'].'</p>
-                                    <p class="det">Seller : '.$row['seller_fullname'].'</p>
-                                    <p class="det">Price : Rs.'.$row['buy_price'].'</p>
-                                    <p class="det">Transaction ID : '.$row['buy_id'].'</p>
+                                    <p class="det">Delivery status: '.$row['delivery'].'</p>
+                                    <p class="det">Seller: '.$row['seller_fullname'].'</p>
+                                    <p class="det">Price: Rs.'.$row['buy_price'].'</p>
+                                    <p class="det">Transaction ID: '.$row['buy_id'].'</p>
                                 </div>
                                 <div class="col-sm-4">';
 

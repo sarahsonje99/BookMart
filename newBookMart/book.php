@@ -1,5 +1,6 @@
 <?php   
     session_start();
+    error_reporting(0);
     $username = "root";
     $password = "";
     $database = "bookmart";
@@ -126,7 +127,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
         <script>
-
+        function myFunc(){
+            alert("Successfully added to cart!")
+        }
         </script>
     </head>
     <body >  
@@ -152,7 +155,7 @@
                             </ul>
                             </li>
                             <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
-                                <li><a href="#">My Orders</a></li>
+                                <li><a href="orders.php">My Orders</a></li>
                                 <li><a href="cart.php">Cart</a></li>
                             <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
                                 <li><a href="shelf.php">My Shelf</a></li>
@@ -273,24 +276,26 @@
                             <h5><b>Price: Rs. <?php echo "{$row['book_cost']}";  ?></b></h5>
                         </div>
                         <br>
-                        <p><strong>Select a Seller:</strong> </p>
-                        <form method="post">
+                        <form method="post" onsubmit="myFunc()" action="addToCart.php">
                         <?php 
-                            $sql2 = "SELECT * FROM seller s, sells ss WHERE s.seller_id = ss.fk_seller_id AND ss.fk_book_id = ".$bid;
+                            $sql2 = "SELECT * FROM seller s, sells ss WHERE ss.avail>0 AND s.seller_id = ss.fk_seller_id AND ss.fk_book_id = ".$bid;
                             $result4 = mysqli_query($con, $sql2);
                             $num_sellers = mysqli_num_rows($result4);
+                            if($num_sellers==0)
+                                echo '<p><strong>No seller available!</strong> </p>';
+                            else
+                                echo '<p><strong>Select a Seller:</strong> </p>';
                             for($i=0;$i<$num_sellers;$i++){
                                 $row = mysqli_fetch_assoc($result4);
-                                echo '<div class="row"><label class="col-sm-2"><input  type = "radio" name="seller" value="'.($row["sells_id"]).'">&nbsp;&nbsp;'.($row["seller_fullname"]).'</label>';
+                                echo '<div class="row"><label class="col-sm-3"><input  type = "radio" name="addtocart_sells" value="'.($row["sells_id"]).'">&nbsp;&nbsp;'.($row["seller_fullname"]).'</label>';
                                 echo '<span class="col-sm-2"> Rating: '.($row['seller_rating']).'</span></div>';
-                                echo '<br>';
+                                echo '';
                             }
                         ?>
-                        
-                            <!-- <p>skghjr<br>ggsuirg<br>skerjg<br>sejgh<br></p> <br> -->
-                            <br>
-
-                        <button type="submit" class="but" >Add To Cart </button>
+                        <br>
+                        <?php if($num_seller!=0): ?>
+                            <button type="submit" class="but" >Add To Cart </button>
+                        <?php endif ?>
                         </form>
                         
                     </div>   

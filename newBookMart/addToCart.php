@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 $username = "root";
 $password = "";
 $database = "bookmart";
@@ -32,7 +33,6 @@ if(isset($_POST['addtocart_sells'])){
         echo "Error updating record: " . mysqli_error($con);
     }
     header("Location: ". $_SERVER["HTTP_REFERER"]);
-    exit();
 }
 echo "No seller selected or available!";
 
