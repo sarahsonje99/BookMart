@@ -42,7 +42,7 @@ if(!$con){
             }
             .bgimg{
                 background-image: url('title1.jpg');
-                height: 250px;
+                height: 300px;
             } 
             .checked {
                 color: orange;
@@ -106,6 +106,17 @@ if(!$con){
                 margin:10px;
                 margin-top:10px;
             }
+            a{
+                color:black;
+                /* text-decoration:none; */
+            }
+            a:hover{
+                text-decoration:none;
+                color:black;
+            }
+            .bghover:hover{
+                background-color:#d7d7d7;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -118,15 +129,21 @@ if(!$con){
             alert("Successfully placed order!");
         }
         </script>
+        <script type="text/javascript">
+function submitform()
+{
+document.forms["genreForm"].submit();
+}
+</script>
     </head>
     <body >    
         <div class="container-fluid bgimg"  >
-            <br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
             <b><h1 class="txt">BOOKMART</h1> </b>
             <p class="txt">The biggest online book store!</p> 
         
         
-            <nav id="navb" data-spy="affix" data-offset-top="225" class="navbar navbar-inverse" >
+            <nav id="navb" data-spy="affix" data-offset-top="280" class="navbar navbar-inverse" >
                 <div class="container-fluid">
                     <span class="text-danger">
                         <div class="navbar-header">
@@ -136,22 +153,43 @@ if(!$con){
                             <li class=""><a href="home.php">Home</a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Thriller</a></li>
-                                <li><a href="#">Classic</a></li>
-                                <li><a href="#">Adventure</a></li>
+                                <li>
+                                    <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
+                                        <input type="hidden" value="1" name="genreq">
+                                        <a style="padding:8px;" href="javascript: submitform()">Fiction</a>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
+                                        <input type="hidden" value="2" name="genreq">
+                                        <a style="padding:8px;" href="javascript: submitform()">Thriller</a>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
+                                        <input type="hidden" value="3" name="genreq">
+                                        <a style="padding:8px;" href="javascript: submitform()">Classics</a>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
+                                        <input type="hidden" value="4" name="genreq">
+                                        <a style="padding:8px;" href="javascript: submitform()">Novel</a>
+                                    </form>
+                                </li>
                             </ul>
                             </li>
                             <li><a href="orders.php">My Orders</a></li>
                             <li><a href="#">Cart</a></li>
                             <li><a href="profile.php">Profile</a></li>
                         </ul>
-                        <form class="navbar-form navbar-left" action="">
+                        <form class="navbar-form navbar-left" action="booksearch.php" method="get">
                             <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Search a book!">
+                              <input type="text" class="form-control" name="searchquery" placeholder="Search a book!">
                             </div>
                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
                             </button>
-                          </form>
+                        </form>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
                             <li ><a href="logout.php"> Logout</a>
