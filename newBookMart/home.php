@@ -435,7 +435,7 @@ if(isset($_POST['username'])){
 
 
 <!-- carousel here -->
-
+<?php if($_SESSION['genre'] == 10): ?>
 <br><h3 style="color:white">Trending: </h3>
                 <div id="jssor_1" style="position:relative;margin:50px 50px 50px 50px;top:0px;left:0px;width:1000px;height:250px;overflow:hidden;visibility:hidden;">
         <!-- Loading Screen -->
@@ -503,7 +503,7 @@ if(isset($_POST['username'])){
     <script type="text/javascript">jssor_1_slider_init();</script>
     <!-- #endregion Jssor Slider End -->
 <!-- carousel end -->
-
+<?php endif ?>
 
 
                 <?php if($_SESSION["genre"]!="10"): ?>
