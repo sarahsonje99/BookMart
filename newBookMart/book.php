@@ -293,7 +293,7 @@
                             }
                         ?>
                         <br>
-                        <?php if($num_seller!=0): ?>
+                        <?php if($num_sellers!=0): ?>
                             <button type="submit" class="but" >Add To Cart </button>
                         <?php endif ?>
                         </form>
