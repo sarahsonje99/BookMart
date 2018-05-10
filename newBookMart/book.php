@@ -28,7 +28,7 @@
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
             body{               
                 background-repeat: no-repeat;
@@ -44,7 +44,7 @@
             }
             .bgimg{
                 background-image: url('title1.jpg');
-                height: 250px;
+                height: 300px;
             } 
             .title{
                 font-size:18px;
@@ -106,6 +106,9 @@
                 text-align: center;
                 cursor: pointer;
             }
+            .checked {
+    color: orange;
+}
             .affix {
       			top: 0;
       			width: 100%;
@@ -120,6 +123,17 @@
             .img-responsive{
                 height:275px;
             }
+            a{
+                color:black;
+                /* text-decoration:none; */
+            }
+            a:hover{
+                text-decoration:none;
+                color:black;
+            }
+            .bghover:hover{
+                background-color:#d7d7d7;
+            }
 
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -127,19 +141,28 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
         <script>
+        
         function myFunc(){
             alert("Successfully added to cart!")
         }
+
         </script>
+        <script type="text/javascript">
+function submitform()
+{
+document.forms["genreForm"].submit();
+}
+</script>
     </head>
-    <body >  
+    <body >
+     
              
         <div class="container-fluid bgimg"  >
-            <br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
             <b><h1 class="txt">BOOKMART</h1> </b>
             <p class="txt">The biggest online book store!</p> 
                 
-            <nav id="navb" data-spy="affix" data-offset-top="225" class="navbar navbar-inverse" >
+            <nav id="navb" data-spy="affix" data-offset-top="280" class="navbar navbar-inverse" >
                 <div class="container-fluid">
                     <span class="text-danger">
                         <div class="navbar-header">
@@ -149,9 +172,30 @@
                             <li class=""><a href="home.php">Home</a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Thriller</a></li>
-                                <li><a href="#">Classic</a></li>
-                                <li><a href="#">Adventure</a></li>
+                            <li>
+                                <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
+                                    <input type="hidden" value="1" name="genreq">
+                                    <a style="padding:8px;" href="javascript: submitform()">Fiction</a>
+                                </form>
+                            </li>
+                            <li>
+                                <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
+                                    <input type="hidden" value="2" name="genreq">
+                                    <a style="padding:8px;" href="javascript: submitform()">Thriller</a>
+                                </form>
+                            </li>
+                            <li>
+                                <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
+                                    <input type="hidden" value="3" name="genreq">
+                                    <a style="padding:8px;" href="javascript: submitform()">Classics</a>
+                                </form>
+                            </li>
+                            <li>
+                                <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
+                                    <input type="hidden" value="4" name="genreq">
+                                    <a style="padding:8px;" href="javascript: submitform()">Novel</a>
+                                </form>
+                            </li>
                             </ul>
                             </li>
                             <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
@@ -169,13 +213,13 @@
                                 <li><a href="home.php" > Profile</a></li>   
                             <?php endif; ?>
                         </ul>
-                        <form class="navbar-form navbar-left" action="" method = "get">
+                        <form class="navbar-form navbar-left" action="booksearch.php" method="get">
                             <div class="form-group">
                               <input type="text" class="form-control" name="searchquery" placeholder="Search a book!">
                             </div>
                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
                             </button>
-                          </form>
+                        </form>
                         <ul class="nav navbar-nav navbar-right">
                             <?php if ($_SESSION['username'] && $_SESSION['usertype'] ): ?>
                                 <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
@@ -288,8 +332,19 @@
                             for($i=0;$i<$num_sellers;$i++){
                                 $row = mysqli_fetch_assoc($result4);
                                 echo '<div class="row"><label class="col-sm-3"><input  type = "radio" name="addtocart_sells" value="'.($row["sells_id"]).'">&nbsp;&nbsp;'.($row["seller_fullname"]).'</label>';
-                                echo '<span class="col-sm-2"> Rating: '.($row['seller_rating']).'</span></div>';
-                                echo '';
+                                echo '<span class="col-sm-6"> Rating: ';
+                                $rating=$row['seller_rating'];
+                                if($rating==0)
+                                    echo 'No rating available';
+                                else {
+                                    for($i=0; $i<5; $i++) {
+                                        if($i<$rating)
+                                            echo '<span class="fa fa-star checked"></span>';
+                                        else
+                                            echo '<span class="fa fa-star"></span>';
+                                    }
+                                }
+                                echo '</div>';
                             }
                         ?>
                         <br>
