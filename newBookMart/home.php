@@ -436,8 +436,8 @@ if(isset($_POST['username'])){
 
 <!-- carousel here -->
 <?php if($_SESSION['genre'] == 10): ?>
-<br><h3 style="color:white">Trending: </h3>
-                <div id="jssor_1" style="position:relative;margin:50px 50px 50px 50px;top:0px;left:0px;width:1000px;height:250px;overflow:hidden;visibility:hidden;">
+<!-- <br><h3 style="color:white">Trending: </h3> -->
+    <div id="jssor_1" style="position:relative;margin-top:50px;margin-left:40px;top:0px;left:0px;width:800px;height:300px;overflow:hidden;visibility:hidden;">
         <!-- Loading Screen -->
         <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
             <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
@@ -455,28 +455,28 @@ if(isset($_POST['username'])){
             <div   data-p="43.75">
                 <img data-u="image" src="https://images-na.ssl-images-amazon.com/images/I/5114SGc8lmL._SX356_BO1,204,203,200_.jpg" />
             </div>
-            <div   data-p="43.75">
+            <div   data-p="45">
                 <img data-u="image" src="https://www.booksofbuderim.com.au/wp-content/uploads/2016/05/Paper-Towns-MTI-Cover-521x710.jpg" />
             </div>
-            <div   data-p="43.75">
+            <div   data-p="45">
                 <img data-u="image" src="https://www.booktopia.com.au/http_coversbooktopiacomau/big/9781847394071/the-perks-of-being-a-wallflower.jpg" />
             </div>
-            <div   data-p="43.75">
+            <div   data-p="45">
                 <img data-u="image" src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2014/08/easy-simple-english-books-read-beginners-5-200x300.jpg" />
             </div>
-            <div   data-p="43.75">
+            <div   data-p="45">
                 <img data-u="image" src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2014/08/easy-simple-english-books-read-beginners-4-200x300.jpg" />
             </div>
-            <div   data-p="43.75">
+            <div   data-p="45">
                 <img data-u="image" src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2014/08/easy-simple-english-books-read-beginners-1.jpg" />
             </div>
-            <div   data-p="43.75">
+            <div   data-p="45">
                 <img data-u="image" src="https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9781/4722/9781472234353.jpg" />
             </div>
-            <div   data-p="43.75">
+            <div   data-p="45">
                 <img data-u="image" src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2014/08/easy-simple-english-books-read-beginners-2.jpg" />
             </div>
-            <div   data-p="43.75">
+            <div   data-p="45">
                 <img data-u="image" src="https://images-na.ssl-images-amazon.com/images/I/51KsgCsIYyL._SX315_BO1,204,203,200_.jpg" />
             </div>
         </div>
