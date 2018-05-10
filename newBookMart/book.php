@@ -313,16 +313,18 @@ document.forms["genreForm"].submit();
                                 echo '<p><strong>No seller available!</strong> </p>';
                             else
                                 echo '<p><strong>Select a Seller:</strong> </p>';
-                            for($i=0;$i<$num_sellers;$i++){
-                                $row = mysqli_fetch_assoc($result4);
+                            
+                            for($i=0; $i<$num_sellers; $i++){
+                                //echo '<p>hi</p>';
+                                $row = mysqli_fetch_array($result4);
                                 echo '<div class="row"><label class="col-sm-3"><input  type = "radio" name="addtocart_sells" value="'.($row["sells_id"]).'">&nbsp;&nbsp;'.($row["seller_fullname"]).'</label>';
                                 echo '<span class="col-sm-6"> Rating: ';
                                 $rating=$row['seller_rating'];
                                 if($rating==0)
                                     echo 'No rating available';
                                 else {
-                                    for($i=0; $i<5; $i++) {
-                                        if($i<$rating)
+                                    for($j=0; $j<5; $j++) {
+                                        if($j<$rating)
                                             echo '<span class="fa fa-star checked"></span>';
                                         else
                                             echo '<span class="fa fa-star"></span>';

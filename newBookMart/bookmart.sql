@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2018 at 02:13 PM
+-- Generation Time: May 10, 2018 at 09:36 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -74,16 +74,8 @@ CREATE TABLE `booktocart` (
 --
 
 INSERT INTO `booktocart` (`booktocart_id`, `fk_customer_id`, `fk_sells_id`, `in_buys`) VALUES
-(1, 1, 1, 1),
-(2, 1, 2, 1),
-(3, 1, 3, 1),
-(10, 1, 1, 1),
-(11, 1, 4, 1),
-(12, 1, 2, 1),
-(13, 1, 6, 1),
-(15, 1, 14, 1),
-(16, 1, 14, 1),
-(17, 1, 14, 1);
+(20, 1, 3, 1),
+(21, 1, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -105,16 +97,8 @@ CREATE TABLE `buys` (
 --
 
 INSERT INTO `buys` (`buy_id`, `fk_booktocart_id`, `buy_price`, `day`, `delivery`, `buy_rating`) VALUES
-(16, 1, 400, '2018-04-16', 0, NULL),
-(17, 2, 358, '2018-04-16', 0, NULL),
-(18, 3, 450, '2018-04-16', 0, NULL),
-(19, 10, 400, '2018-04-16', 0, NULL),
-(20, 11, 320, '2018-04-16', 0, NULL),
-(21, 12, 358, '2018-04-16', 0, NULL),
-(22, 13, 300, '2018-04-16', 0, NULL),
-(23, 15, 450, '2018-04-16', 0, NULL),
-(24, 16, 450, '2018-04-16', 0, NULL),
-(25, 17, 450, '2018-04-16', 0, NULL);
+(27, 20, 450, '2018-05-10', 0, NULL),
+(28, 21, 300, '2018-05-10', 0, NULL);
 
 --
 -- Triggers `buys`
@@ -215,7 +199,12 @@ INSERT INTO `hasgenre` (`hasgenre_id`, `fk_book_id`, `fk_genre_id`) VALUES
 (7, 13, 3),
 (12, 17, 8),
 (13, 25, 8),
-(14, 26, 4);
+(14, 26, 4),
+(15, 29, 4),
+(16, 27, 2),
+(17, 28, 6),
+(18, 27, 3),
+(19, 30, 7);
 
 -- --------------------------------------------------------
 
@@ -229,6 +218,16 @@ CREATE TABLE `returned` (
   `day` date DEFAULT NULL,
   `delivery` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Triggers `returned`
+--
+DELIMITER $$
+CREATE TRIGGER `return_date` BEFORE INSERT ON `returned` FOR EACH ROW if ( isnull(new.day) ) then
+ set new.day=curdate();
+end if
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -252,16 +251,15 @@ CREATE TABLE `seller` (
 
 INSERT INTO `seller` (`seller_id`, `username`, `password`, `email`, `seller_fullname`, `address`, `seller_rating`) VALUES
 (1, 'admins', 'admins', 'admins@gmail.com', 'admin seller', 'Highway Shoppers, Andheri, Mumbai-400057', 4),
-(2, 'seller1', 'seller1', 'seller1@gmail.com', 'shyamj mali', 'new hsg , wesstern marcket, borivali', 67),
-(3, 'seller2', 'seller2', 'seller2@gmail.com', 'krushnaq katkar', NULL, NULL),
-(4, 'seller4', 'seller4', 'seller4@gmail.com', 'seller4', 'shop no 60, sadashiv peth, pune', NULL),
-(5, 'seller5', 'seller5', 'seller5@gamil.com', 'gangaram godse', 'shop no 10, ganpati mandir, pune', 67),
-(6, 'seller6', 'seller6', 'seller6@gmail.com', 'sundarlal gupta', 'shop no 10, sadashiv peth, pune', 45),
-(7, 'seller7', 'seller7', 'seller7@gamil.com', 'seller7', 'shop no 10, gujrat store, kolhapur', 23),
-(8, 'seller8', 'seller8', 'seller8@gamil.com', 'seller8', 'shop no 34, saras baug, pune', NULL),
-(9, 'seller9', 'seller9', 'seller9@gamil.com', 'seller9', 'shop no 34,akshar store, mohan dham, churchgate', 34),
-(10, 'seller10', 'seller10', 'seller10@gamil.com', 'seller10', 'shop no 34, surya shopping centre, dadar', 45),
-(11, 'seller11', 'seller11', 'seller11@gamil.com', 'seller11', 'shop no 34, pushkar baug, ganmpati pule', 34);
+(2, 'seller1', 'seller1', 'seller1@gmail.com', 'shyamj mali', 'new hsg , wesstern marcket, borivali', 3),
+(4, 'seller4', 'seller4', 'seller4@gmail.com', 'seller4', 'shop no 60, sadashiv peth, pune', 2),
+(5, 'seller5', 'seller5', 'seller5@gamil.com', 'gangaram godse', 'shop no 10, ganpati mandir, pune', 5),
+(6, 'seller6', 'seller6', 'seller6@gmail.com', 'sundarlal gupta', 'shop no 10, sadashiv peth, pune', 4),
+(7, 'seller7', 'seller7', 'seller7@gamil.com', 'seller7', 'shop no 10, gujrat store, kolhapur', 4),
+(8, 'seller8', 'seller8', 'seller8@gamil.com', 'seller8', 'shop no 34, saras baug, pune', 3),
+(9, 'seller9', 'seller9', 'seller9@gamil.com', 'seller9', 'shop no 34,akshar store, mohan dham, churchgate', 3),
+(10, 'seller10', 'seller10', 'seller10@gamil.com', 'seller10', 'shop no 34, surya shopping centre, dadar', 5),
+(11, 'seller11', 'seller11', 'seller11@gamil.com', 'seller11', 'shop no 34, pushkar baug, ganmpati pule', 1);
 
 -- --------------------------------------------------------
 
@@ -281,23 +279,36 @@ CREATE TABLE `sells` (
 --
 
 INSERT INTO `sells` (`sells_id`, `fk_seller_id`, `fk_book_id`, `avail`) VALUES
-(1, 1, 15, 8),
+(1, 1, 15, 10),
 (2, 4, 13, 2),
-(3, 1, 17, 6),
+(3, 1, 17, 5),
 (4, 4, 16, 12),
 (5, 5, 12, 2),
 (6, 10, 14, 1),
 (7, 5, 15, 3),
 (8, 10, 16, 9),
 (9, 4, 16, 3),
-(10, 6, 26, 0),
-(11, 10, 30, 0),
+(10, 6, 26, 4),
+(11, 10, 30, 10),
 (12, 7, 28, 3),
-(13, 7, 25, 0),
+(13, 7, 25, 3),
 (14, 2, 29, 1),
 (15, 8, 15, 2),
 (16, 4, 28, 2),
-(17, 11, 27, 8);
+(17, 11, 27, 8),
+(18, 9, 27, 3),
+(19, 6, 27, 12),
+(20, 4, 29, 20),
+(22, 8, 12, 10),
+(23, 2, 26, 3),
+(24, 4, 13, 5),
+(25, 8, 30, 5),
+(26, 1, 28, 4),
+(27, 1, 14, 3),
+(28, 7, 28, 7),
+(29, 11, 30, 5),
+(30, 7, 12, 5),
+(31, 6, 12, 6);
 
 --
 -- Indexes for dumped tables
@@ -383,13 +394,13 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT for table `booktocart`
 --
 ALTER TABLE `booktocart`
-  MODIFY `booktocart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `booktocart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `buys`
 --
 ALTER TABLE `buys`
-  MODIFY `buy_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `buy_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -407,13 +418,13 @@ ALTER TABLE `genre`
 -- AUTO_INCREMENT for table `hasgenre`
 --
 ALTER TABLE `hasgenre`
-  MODIFY `hasgenre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `hasgenre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `returned`
 --
 ALTER TABLE `returned`
-  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `seller`
@@ -425,7 +436,7 @@ ALTER TABLE `seller`
 -- AUTO_INCREMENT for table `sells`
 --
 ALTER TABLE `sells`
-  MODIFY `sells_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `sells_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Constraints for dumped tables
