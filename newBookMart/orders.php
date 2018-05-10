@@ -196,13 +196,13 @@ document.forms["genreForm"].submit();
 
 
             <?php 
-                $sql1 = "SELECT * FROM buys b, booktocart bc, customer c, sells s, book bk, seller sr WHERE sr.seller_id=s.fk_seller_id AND bk.book_id=s.fk_book_id AND s.sells_id=bc.fk_sells_id AND c.customer_id=bc.fk_customer_id AND b.fk_booktocart_id=bc.booktocart_id AND c.customer_id=".$_SESSION['user_id'];
+                $sql1 = "SELECT * FROM buys b, booktocart bc, customer c, sells s, book bk, seller sr WHERE sr.seller_id=s.fk_seller_id AND bk.book_id=s.fk_book_id AND s.sells_id=bc.fk_sells_id AND c.customer_id=bc.fk_customer_id AND b.fk_booktocart_id=bc.booktocart_id AND c.customer_id=".$_SESSION['user_id'].' ORDER BY day DESC';
                 $result1 = mysqli_query($con,$sql1);
                 //echo "<h1 style='color:red;'>".$sql1."</h1>";
                 $num_orders = mysqli_num_rows($result1);
                 //echo "<h1 style='color:red;'>".$num_orders."</h1>";
                 if($num_orders == 0)
-                echo '<div style="text-align:center;"><h2 >You have not placed any orers yet. <a href="cart.php.php" style=" text-decoration=none;">&nbsp;Buy books</h2></div>';
+                echo '<div style="text-align:center;"><h2 >You have not placed any orers yet. <a href="cart.php" style=" text-decoration=none;"><br>Buy books</h2></div>';
            
                 for($i=0; $i<$num_orders; $i++) {
                     $row = mysqli_fetch_array($result1);

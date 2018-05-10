@@ -140,13 +140,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-        <script>
-        
-        function myFunc(){
-            alert("Successfully added to cart!")
-        }
-
-        </script>
         <script type="text/javascript">
 function submitform()
 {
@@ -261,16 +254,7 @@ document.forms["genreForm"].submit();
                         <div class="row desc">
                             <p class="title">  <?php echo $row["book_name"];  ?> </p>
                             <p class="det"><?php echo $row["author"];  ?></p>
-                            <p class="det" >
-                            <!-- <span class="tag">Classic</span>&nbsp;&nbsp;<span class="tag">Novel</span> -->
-                            <?php 
-                                // foreach($genres as $g){
-                                    // echo '<span class="tag">'.($g[0]).'</span>&nbsp;&nbsp;';
-                                    // echo "<table><tr><td>".($row_users['email'])."</td></tr>";
-
-                                // }
-                            ?>
-                            </p>
+                            <p class="det"></p>
                         </div>
                     </div>
                     <div class="col-sm-1"></div>
