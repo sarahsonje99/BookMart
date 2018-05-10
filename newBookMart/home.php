@@ -124,7 +124,7 @@ if(isset($_POST['username'])){
                 border-bottom: 0.5px;
             }
             .vertical-dist-between-tiles {
-                height: 500px;
+                height: 525px;
             }
             .blank{
                 width:30px;
@@ -229,10 +229,6 @@ if(isset($_POST['username'])){
         .jssora073.jssora073dn {opacity:.4;}
         .jssora073.jssora073ds {opacity:.3;pointer-events:none;}
   
-
-
-
-
 
             
         </style>
@@ -422,88 +418,63 @@ if(isset($_POST['username'])){
             
             <div class="container-fluid" id="contain">                
                 <br><br>
-                <?php 
-                   // $_SESSION['bookNotFound']=true;
-                ?>
                 <?php if($_SESSION['bookNotFound']==true): ?>
                     <p style="color:white">Search not found. Please try again.</p>
                     <script>console.log("work");</script>
-                <?php 
-                    $_SESSION['bookNotFound']=false;
-                ?>
+                    <?php 
+                        $_SESSION['bookNotFound']=false;
+                    ?>
                 <?php endif?>
 
 
 <!-- carousel here -->
-<?php if($_SESSION['genre'] == 10): ?>
-<!-- <br><h3 style="color:white">Trending: </h3> -->
-    <div id="jssor_1" style="position:relative;margin-top:50px;margin-left:40px;top:0px;left:0px;width:800px;height:300px;overflow:hidden;visibility:hidden;">
-        <!-- Loading Screen -->
-        <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
-            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
-        </div>
-        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1000px;height:240px;overflow:hidden;">
-            <!-- <div   data-p="43.75">
-                <img data-u="image" src="img/001.jpg" />
-            </div>
-            <div   data-p="43.75">
-                <img data-u="image" src="img/005.jpg" />
-            </div>
-            <div   data-p="43.75">
-                <img data-u="image" src="img/006.jpg" />
-            </div> -->
-            <div   data-p="43.75">
-                <img data-u="image" src="https://images-na.ssl-images-amazon.com/images/I/5114SGc8lmL._SX356_BO1,204,203,200_.jpg" />
-            </div>
-            <div   data-p="45">
-                <img data-u="image" src="https://www.booksofbuderim.com.au/wp-content/uploads/2016/05/Paper-Towns-MTI-Cover-521x710.jpg" />
-            </div>
-            <div   data-p="45">
-                <img data-u="image" src="https://www.booktopia.com.au/http_coversbooktopiacomau/big/9781847394071/the-perks-of-being-a-wallflower.jpg" />
-            </div>
-            <div   data-p="45">
-                <img data-u="image" src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2014/08/easy-simple-english-books-read-beginners-5-200x300.jpg" />
-            </div>
-            <div   data-p="45">
-                <img data-u="image" src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2014/08/easy-simple-english-books-read-beginners-4-200x300.jpg" />
-            </div>
-            <div   data-p="45">
-                <img data-u="image" src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2014/08/easy-simple-english-books-read-beginners-1.jpg" />
-            </div>
-            <div   data-p="45">
-                <img data-u="image" src="https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9781/4722/9781472234353.jpg" />
-            </div>
-            <div   data-p="45">
-                <img data-u="image" src="https://www.fluentu.com/blog/english/wp-content/uploads/sites/4/2014/08/easy-simple-english-books-read-beginners-2.jpg" />
-            </div>
-            <div   data-p="45">
-                <img data-u="image" src="https://images-na.ssl-images-amazon.com/images/I/51KsgCsIYyL._SX315_BO1,204,203,200_.jpg" />
-            </div>
-        </div>
-        <!-- Bullet Navigator -->
-        <div data-u="navigator" class="jssorb057" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
-            <div data-u="prototype" class="i" style="width:16px;height:16px;">
-                <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                    <circle class="b" cx="8000" cy="8000" r="5000"></circle>
-                </svg>
-            </div>
-        </div>
-        <!-- Arrow Navigator -->
-        <div data-u="arrowleft" class="jssora073" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
-            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                <path class="a" d="M4037.7,8357.3l5891.8,5891.8c100.6,100.6,219.7,150.9,357.3,150.9s256.7-50.3,357.3-150.9 l1318.1-1318.1c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3L7745.9,8000l4216.4-4216.4 c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3l-1318.1-1318.1c-100.6-100.6-219.7-150.9-357.3-150.9 s-256.7,50.3-357.3,150.9L4037.7,7642.7c-100.6,100.6-150.9,219.7-150.9,357.3C3886.8,8137.6,3937.1,8256.7,4037.7,8357.3 L4037.7,8357.3z"></path>
-            </svg>
-        </div>
-        <div data-u="arrowright" class="jssora073" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
-            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                <path class="a" d="M11962.3,8357.3l-5891.8,5891.8c-100.6,100.6-219.7,150.9-357.3,150.9s-256.7-50.3-357.3-150.9 L4037.7,12931c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3L8254.1,8000L4037.7,3783.6 c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3l1318.1-1318.1c100.6-100.6,219.7-150.9,357.3-150.9 s256.7,50.3,357.3,150.9l5891.8,5891.8c100.6,100.6,150.9,219.7,150.9,357.3C12113.2,8137.6,12062.9,8256.7,11962.3,8357.3 L11962.3,8357.3z"></path>
-            </svg>
-        </div>
-    </div>
-    <script type="text/javascript">jssor_1_slider_init();</script>
-    <!-- #endregion Jssor Slider End -->
+                <?php if($_SESSION['genre'] == 10): ?>
+                    <br><h3 style="color:white">Trending: </h3>
+                    <div id="jssor_1" style="position:relative;margin-top:50px;margin-left:40px;top:0px;left:0px;width:800px;height:300px;overflow:hidden;visibility:hidden;">
+                    <!-- Loading Screen -->
+                        <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+                            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
+                        </div>
+                        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1000px;height:240px;overflow:hidden;">
+                            <?php
+                                $sql5 = "SELECT imgUrl FROM book";
+                                $result5 = mysqli_query($con,$sql5);
+                                $row5 = mysqli_fetch_array($result5);
+                                $num_images = mysqli_num_rows($result5);
+                                for ($i=0; $i<$num_images; $i++)
+                                { 
+                                    echo '                                
+                                    <div data-p="43.75">
+                                        <img data-u="image" src="'.$row5["imgUrl"].'" />
+                                    </div>';
+                                    $row5 = mysqli_fetch_array($result5);
+                                }                            
+                            ?>
+                        </div>
+                        <!-- Bullet Navigator -->
+                        <div data-u="navigator" class="jssorb057" style="position:absolute; bottom:12px; right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+                            <div data-u="prototype" class="i" style="width:16px; height:16px;">
+                                <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                    <circle class="b" cx="8000" cy="8000" r="5000"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- Arrow Navigator -->
+                        <div data-u="arrowleft" class="jssora073" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+                            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                <path class="a" d="M4037.7,8357.3l5891.8,5891.8c100.6,100.6,219.7,150.9,357.3,150.9s256.7-50.3,357.3-150.9 l1318.1-1318.1c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3L7745.9,8000l4216.4-4216.4 c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3l-1318.1-1318.1c-100.6-100.6-219.7-150.9-357.3-150.9 s-256.7,50.3-357.3,150.9L4037.7,7642.7c-100.6,100.6-150.9,219.7-150.9,357.3C3886.8,8137.6,3937.1,8256.7,4037.7,8357.3 L4037.7,8357.3z"></path>
+                            </svg>
+                        </div>
+                        <div data-u="arrowright" class="jssora073" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+                            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                <path class="a" d="M11962.3,8357.3l-5891.8,5891.8c-100.6,100.6-219.7,150.9-357.3,150.9s-256.7-50.3-357.3-150.9 L4037.7,12931c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3L8254.1,8000L4037.7,3783.6 c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3l1318.1-1318.1c100.6-100.6,219.7-150.9,357.3-150.9 s256.7,50.3,357.3,150.9l5891.8,5891.8c100.6,100.6,150.9,219.7,150.9,357.3C12113.2,8137.6,12062.9,8256.7,11962.3,8357.3 L11962.3,8357.3z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <script type="text/javascript">jssor_1_slider_init();</script>
+                    <!-- #endregion Jssor Slider End -->
+                <?php endif ?>
 <!-- carousel end -->
-<?php endif ?>
 
 
                 <?php if($_SESSION["genre"]!="10"): ?>
@@ -512,18 +483,14 @@ if(isset($_POST['username'])){
                         <?php
                             $sql4 = "SELECT * FROM genre WHERE genre_id=".$_SESSION["genre"];
                             $result4 = mysqli_query($con,$sql4);
-                            //echo '<p style="color: white">'.$sql4.'</p>';
                             $row4 = mysqli_fetch_array($result4);
                             echo '          
                             <h3 style="color: white">'.$row4["genre_name"].'</h3>';
                             $sql2 = "SELECT * FROM book b, hasgenre g WHERE b.book_id=g.fk_book_id AND g.fk_genre_id= ".$_SESSION["genre"];
                             $result2 = mysqli_query($con,$sql2);
-                            //echo "<h1 style='color:white;'>hiii</h1>";
                             $num_books = mysqli_num_rows($result2);
-                            //echo "<h1 style='color:white;'>hiii".$num_books."</h1>";
                             for ($i=0; $i<$num_books; )
                             {
-                                //echo "<h1 style='color:white;'>hiii</h1>";
                                 echo '                                
                                     <div class="row vertical-dist-between-tiles">';
                                 for($j=0 ;$j<4 && $i<$num_books; $j++, $i++ ){
@@ -575,7 +542,7 @@ if(isset($_POST['username'])){
                             $sql2 = "SELECT * FROM book ";
                             $result2 = mysqli_query($con,$sql2);
                             $num_books = mysqli_num_rows($result2);
-                            echo '<h3 style="color: white">Catalogue: </h3>';  
+                            echo '<h3 style="color: white">Catalogue: </h3><br>';  
                             for ($i=0; $i<$num_books; )
                             {
                                 //echo "<h1 style='color:white;'>hiii</h1>";

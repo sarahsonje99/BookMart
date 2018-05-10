@@ -210,7 +210,7 @@ document.forms["genreForm"].submit();
                 $num_orders = mysqli_num_rows($result1);
                 //echo "<h1 style='color:red;'>".$num_orders."</h1>";
                 if($num_orders == 0)
-                    echo '<div style="text-align:center;"><h2 >Your cart is empty! <a href="home.php" style=" text-decoration=none;">&nbsp;Add books</h2></div>';
+                    echo '<div style="text-align:center;"><h2 >Your cart is empty! <br><a href="home.php" style=" text-decoration=none;">Add books</h2></div>';
                 for($i=0; $i<$num_orders; $i++) {
                     $row = mysqli_fetch_array($result1);
                     echo '
