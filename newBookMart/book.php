@@ -4,8 +4,11 @@
     $username = "root";
     $password = "";
     $database = "bookmart";
+    $database2 = "bookmart2";
     $con = mysqli_connect("localhost",$username,$password,$database);
-    if(!$con){
+    $con2 = mysqli_connect("localhost", $username, $password, $database2 );
+
+    if(!$con || !$con2){
         die("Connection failed: ".mysqli_connect_error());
     }
 
@@ -236,10 +239,21 @@ document.forms["genreForm"].submit();
                     <?php
                     $bid = $_GET["bookID"];
                     $sql2 = "SELECT * FROM book WHERE book_id = ".$bid;
-                    $result2 = mysqli_query($con,$sql2);
+                    $result2 = mysqli_query($con, $sql2);
+                    $result3 = mysqli_query($con2, $sql2);
                     //echo "<h1 style='color:white;'>hiii</h1>";
+
                     $num_books = mysqli_num_rows($result2);
-                    $row = mysqli_fetch_array($result2);
+                    $row1 = mysqli_fetch_array($result2);
+                    $row2 = mysqli_fetch_array($result3);
+                    if(empty($row1) && !empty($row2)){
+                        $row = $row2;
+                    }
+                    else{
+                        $row = $row1;
+                    }
+        
+
                     ?>
                     <?php echo $row["book_name"];  ?> 
  
