@@ -501,9 +501,11 @@ if(isset($_POST['username'])){
                                     //echo "<h1 style='color:white;'>.$sql.</h1>";
                                     $result3 = mysqli_query($con,$sql);
                                     $num_genres = mysqli_num_rows($result3);
+                                    // inserting datatype for filter correction
                                     echo '
                                         <form action="book.php" method="get">
-                                            <div class="col-sm-2 tile" name="bookID" type="submit" value="'.$bid.'" >
+                            
+                                            <div data-eventtype="" class="col-sm-2 tile" name="bookID" type="submit" value="'.$bid.'" >
                                                 <div class="row image">
                                                     <span><img class="img-responsive" style="width:100%; height: 100%;" src = "'.($row["imgUrl"]).'"></span>
                                                 </div>
