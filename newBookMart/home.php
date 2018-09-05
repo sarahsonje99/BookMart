@@ -16,38 +16,47 @@ if(isset($_POST['username'])){
     $uname = $_POST['username'];
     $pass = $_POST['password'];
     if($_POST['isSeller'] == 'true')
-    {
         $sql = "SELECT * FROM seller WHERE username='".$uname."' AND password='".$pass."' limit 1";
-        $sql2 = "SELECT * FROM seller WHERE username='".$uname."' AND password='".$pass."' limit 1";
-    }
     else if ($_POST['isSeller'] == 'false')
-    {
         $sql = "SELECT * FROM customer WHERE username='".$uname."' AND password='".$pass."' limit 1";
-        $sql2 = "SELECT * FROM customer WHERE username='".$uname."' AND password='".$pass."' limit 1";
-    }
     
     $result = mysqli_query($con,$sql);
-    $result2 = mysqli_query($con2,$sql2);
-    if(!empty($result) || !empty($result2)){
-        if(!empty($result))
-            $row = mysqli_fetch_assoc($result);
-        else
-            $row = mysqli_fetch_assoc($result2);
-        if(!$row) {
+    $result2 = mysqli_query($con2,$sql);
+    if(!empty($result) || !empty($result2)) {
+        $row = mysqli_fetch_assoc($result);
+        $row2 = mysqli_fetch_assoc($result2);
+        if($row)
+        {
+            echo "From 1st db";
+            $_SESSION["username"] = $row["username"];
+            if($_POST['isSeller'] == 'false') {
+                $_SESSION["user_id"]=$row['customer_id'];
+                $_SESSION["usertype"] = "customer";
+            }  
+            else if($_POST["isSeller"] == 'true') {
+                $_SESSION["user_id"]=$row['seller_id'];
+                $_SESSION["usertype"] = "seller";
+            } 
+        }
+        else if($row2)
+        {
+            echo "From 2nd db";
+            $_SESSION["username"] = $row2["username"];
+            if($_POST['isSeller'] == 'false') {
+                $_SESSION["user_id"]=$row2['customer_id'];
+                $_SESSION["usertype"] = "customer";
+            }  
+            else if($_POST["isSeller"] == 'true') {
+                $_SESSION["user_id"]=$row2['seller_id'];
+                $_SESSION["usertype"] = "seller";
+            } 
+        }
+        if(!$row2 && !$row) {
+            echo "Null";
             session_destroy();
             echo "Select appropriate option between Seller or Customer!";
             exit();
-        }
-        $_SESSION["username"] = $row["username"];
-        if($_POST['isSeller'] == 'false') {
-            $_SESSION["user_id"]=$row['customer_id'];
-            $_SESSION["usertype"] = "customer";
-        }  
-        else if($_POST["isSeller"] == 'true') {
-            $_SESSION["user_id"]=$row['seller_id'];
-            $_SESSION["usertype"] = "seller";
-        } 
-           
+        }      
         header("Location: home.php");
         exit();
     }
@@ -55,9 +64,7 @@ if(isset($_POST['username'])){
         session_destroy();
         echo "Incorrect Login Details";
         exit();
-    }
-    
-
+    }  
 }
 
 
@@ -408,9 +415,9 @@ if(isset($_POST['username'])){
                 <h1 style="margin-top:0px">Login</h1>
                 <form id="myForm" role="form" action="home.php" method="post" enctype="multipart/form-data">
                     <p style="font-size:16px; text-align: left; margin-left:27px; margin-bottom:0px;"><br>Username </p>
-                    <input class="namebox" type="text" id="email" name="username">
+                    <input class="namebox" type="text" id="email" name="username" value="adminc2">
                     <p style="font-size:16px; text-align: left; margin-left:27px; margin-bottom:0px;"><br>Password </p>
-                    <input class="passbox" type="password" id="pwd" name="password">
+                    <input class="passbox" type="password" id="pwd" name="password" value="adminc2">
                     <br><br>
                     <p style="text-align:start">Login as:&nbsp;
                         <label>
@@ -451,8 +458,11 @@ if(isset($_POST['username'])){
                             <?php
                                 $sql5 = "SELECT imgUrl FROM book";
                                 $result5 = mysqli_query($con,$sql5);
+                                $result52 = mysqli_query($con2,$sql5);
                                 $row5 = mysqli_fetch_array($result5);
+                                $row52 = mysqli_fetch_array($result52);
                                 $num_images = mysqli_num_rows($result5);
+                                $num_images2 = mysqli_num_rows($result52);
                                 for ($i=0; $i<$num_images; $i++)
                                 { 
                                     echo '                                
@@ -460,6 +470,14 @@ if(isset($_POST['username'])){
                                         <img data-u="image" src="'.$row5["imgUrl"].'" />
                                     </div>';
                                     $row5 = mysqli_fetch_array($result5);
+                                }
+                                for ($i=0; $i<$num_images2; $i++)
+                                { 
+                                    echo '                                
+                                    <div data-p="43.75">
+                                        <img data-u="image" src="'.$row52["imgUrl"].'" />
+                                    </div>';
+                                    $row52 = mysqli_fetch_array($result52);
                                 }                            
                             ?>
                         </div>
@@ -555,7 +573,8 @@ if(isset($_POST['username'])){
                         <?php
                             $sql2 = "SELECT * FROM book ";
                             $result2 = mysqli_query($con,$sql2);
-                            $num_books = mysqli_num_rows($result2);
+                            $result22 = mysqli_query($con,$sql22);
+                            $num_books2 = mysqli_num_rows($result22);
                             echo '<h3 style="color: white">Catalogue: </h3><br>';  
                             for ($i=0; $i<$num_books; )
                             {
