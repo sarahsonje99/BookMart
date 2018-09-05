@@ -1,3 +1,4 @@
+<!-- useless old page -->
 
 <?php
 $username = "root";

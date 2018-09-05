@@ -4,8 +4,10 @@ error_reporting(0);
 $username = "root";
 $password = "";
 $database = "bookmart";
+$database2 = "bookmart2";
 $con = mysqli_connect("localhost",$username,$password,$database);
-if(!$con){
+$con2 = mysqli_connect("localhost",$username,$password,$database2);
+if(!$con || !$con2){
     die("Connection failed: ".mysqli_connect_error());
 }
 //$_SESSION["genre"]="4";
@@ -14,13 +16,23 @@ if(isset($_POST['username'])){
     $uname = $_POST['username'];
     $pass = $_POST['password'];
     if($_POST['isSeller'] == 'true')
+    {
         $sql = "SELECT * FROM seller WHERE username='".$uname."' AND password='".$pass."' limit 1";
+        $sql2 = "SELECT * FROM seller WHERE username='".$uname."' AND password='".$pass."' limit 1";
+    }
     else if ($_POST['isSeller'] == 'false')
+    {
         $sql = "SELECT * FROM customer WHERE username='".$uname."' AND password='".$pass."' limit 1";
+        $sql2 = "SELECT * FROM customer WHERE username='".$uname."' AND password='".$pass."' limit 1";
+    }
     
     $result = mysqli_query($con,$sql);
-    if(!empty($result)){
-        $row = mysqli_fetch_assoc($result);
+    $result2 = mysqli_query($con2,$sql2);
+    if(!empty($result) || !empty($result2)){
+        if(!empty($result))
+            $row = mysqli_fetch_assoc($result);
+        else
+            $row = mysqli_fetch_assoc($result2);
         if(!$row) {
             session_destroy();
             echo "Select appropriate option between Seller or Customer!";
