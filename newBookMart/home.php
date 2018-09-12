@@ -27,27 +27,42 @@ if(isset($_POST['username'])){
     }
     
     $result = mysqli_query($con,$sql);
-    $result2 = mysqli_query($con2,$sql2);
-    if(!empty($result) || !empty($result2)){
-        if(!empty($result))
-            $row = mysqli_fetch_assoc($result);
-        else
-            $row = mysqli_fetch_assoc($result2);
-        if(!$row) {
+    $result2 = mysqli_query($con2,$sql);
+    if(!empty($result) || !empty($result2)) {
+        $row = mysqli_fetch_assoc($result);
+        $row2 = mysqli_fetch_assoc($result2);
+        if($row)
+        {
+            echo "From 1st db";
+            $_SESSION["username"] = $row["username"];
+            if($_POST['isSeller'] == 'false') {
+                $_SESSION["user_id"]=$row['customer_id'];
+                $_SESSION["usertype"] = "customer";
+            }  
+            else if($_POST["isSeller"] == 'true') {
+                $_SESSION["user_id"]=$row['seller_id'];
+                $_SESSION["usertype"] = "seller";
+            } 
+        }
+        else if($row2)
+        {
+            echo "From 2nd db";
+            $_SESSION["username"] = $row2["username"];
+            if($_POST['isSeller'] == 'false') {
+                $_SESSION["user_id"]=$row2['customer_id'];
+                $_SESSION["usertype"] = "customer";
+            }  
+            else if($_POST["isSeller"] == 'true') {
+                $_SESSION["user_id"]=$row2['seller_id'];
+                $_SESSION["usertype"] = "seller";
+            } 
+        }
+        if(!$row2 && !$row) {
+            echo "Null";
             session_destroy();
             echo "Select appropriate option between Seller or Customer!";
             exit();
-        }
-        $_SESSION["username"] = $row["username"];
-        if($_POST['isSeller'] == 'false') {
-            $_SESSION["user_id"]=$row['customer_id'];
-            $_SESSION["usertype"] = "customer";
-        }  
-        else if($_POST["isSeller"] == 'true') {
-            $_SESSION["user_id"]=$row['seller_id'];
-            $_SESSION["usertype"] = "seller";
-        } 
-           
+        }      
         header("Location: home.php");
         exit();
     }
@@ -55,9 +70,7 @@ if(isset($_POST['username'])){
         session_destroy();
         echo "Incorrect Login Details";
         exit();
-    }
-    
-
+    }  
 }
 
 
@@ -244,7 +257,7 @@ if(isset($_POST['username'])){
 
             
         </style>
-       
+        
     </head>
     <body > 
     

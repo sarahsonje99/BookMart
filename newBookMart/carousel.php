@@ -7,19 +7,30 @@
         </div>
         <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1000px;height:240px;overflow:hidden;">
             <?php
-                $sql5 = "SELECT imgUrl FROM book";
-                $result5 = mysqli_query($con,$sql5);
-                $row5 = mysqli_fetch_array($result5);
-                $num_images = mysqli_num_rows($result5);
-                for ($i=0; $i<$num_images; $i++)
-                { 
-                    echo '                                
-                    <div data-p="43.75">
-                        <img data-u="image" src="'.$row5["imgUrl"].'" />
-                    </div>';
-                    $row5 = mysqli_fetch_array($result5);
-                }                            
-            ?>
+               $sql5 = "SELECT imgUrl FROM book";
+               $result5 = mysqli_query($con,$sql5);
+               $result52 = mysqli_query($con2,$sql5);
+               $row5 = mysqli_fetch_array($result5);
+               $row52 = mysqli_fetch_array($result52);
+               $num_images = mysqli_num_rows($result5);
+               $num_images2 = mysqli_num_rows($result52);
+               for ($i=0; $i<$num_images; $i++)
+               { 
+                   echo '                                
+                   <div data-p="43.75">
+                       <img data-u="image" src="'.$row5["imgUrl"].'" />
+                   </div>';
+                   $row5 = mysqli_fetch_array($result5);
+               }
+               for ($i=0; $i<$num_images2; $i++)
+               { 
+                   echo '                                
+                   <div data-p="43.75">
+                       <img data-u="image" src="'.$row52["imgUrl"].'" />
+                   </div>';
+                   $row52 = mysqli_fetch_array($result52);
+               }                            
+           ?>
         </div>
         <!-- Bullet Navigator -->
         <div data-u="navigator" class="jssorb057" style="position:absolute; bottom:12px; right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
