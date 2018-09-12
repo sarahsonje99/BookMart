@@ -251,187 +251,14 @@ if(isset($_POST['username'])){
 
             
         </style>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-        
-
-        <script>
-        $(document).ready(function () {
-            $('a.open-modal').click(function (event) {
-                $(this).modal({
-                    fadeDuration: 250
-                });
-                return false;
-            });
-        });
-        function submitform() {
-            document.forms["genreForm"].submit();
-        }
-        </script>
+       
     </head>
     <body > 
-    <script src="js/jssor.slider-27.1.0.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        jssor_1_slider_init = function() {
-
-            var jssor_1_options = {
-              $AutoPlay: 1,
-              $AutoPlaySteps: 5,
-              $SlideDuration: 160,
-              $SlideWidth: 200,
-              $SlideSpacing: 3,
-              $ArrowNavigatorOptions: {
-                $Class: $JssorArrowNavigator$,
-                $Steps: 5
-              },
-              $BulletNavigatorOptions: {
-                $Class: $JssorBulletNavigator$
-              }
-            };
-
-            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
-
-            /*#region responsive code begin*/
-
-            var MAX_WIDTH = 980;
-
-            function ScaleSlider() {
-                var containerElement = jssor_1_slider.$Elmt.parentNode;
-                var containerWidth = containerElement.clientWidth;
-
-                if (containerWidth) {
-
-                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
-
-                    jssor_1_slider.$ScaleWidth(expectedWidth);
-                }
-                else {
-                    window.setTimeout(ScaleSlider, 30);
-                }
-            }
-
-            ScaleSlider();
-
-            $Jssor$.$AddEvent(window, "load", ScaleSlider);
-            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
-            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
-            /*#endregion responsive code end*/
-        };
-    </script> 
-
-
-
-    <!-- navbar styling starts here    -->
-        <div class="container-fluid bgimg" >
-            <br><br><br><br><br><br><br><br><br>
-            <b><h1 class="txt">BOOKMART</h1> </b>
-            <p class="txt">The biggest online book store!</p> 
+    
+    <!-- background header and navigation included here    -->
+    <?php require($DOCUMENT_ROOT . "navbar.php"); ?>
+    <!-- navbar end -->
         
-        
-            <nav id="navb" data-spy="affix" data-offset-top="280" class="navbar navbar-inverse" >
-                <div class="container-fluid">
-                    <span class="text-danger">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="#">BookMart</a>
-                        </div>
-                        <ul class="nav navbar-nav" style="text-indent:0%">
-                            <li class=""><a href="home.php">Home</a></li>
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genre <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                            <li>
-                                <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
-                                    <input type="hidden" value="1" name="genreq">
-                                    <a style="padding:8px;" href="javascript: submitform()">Fiction</a>
-                                </form>
-                            </li>
-                            <li>
-                                <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
-                                    <input type="hidden" value="2" name="genreq">
-                                    <a style="padding:8px;" href="javascript: submitform()">Thriller</a>
-                                </form>
-                            </li>
-                            <li>
-                                <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
-                                    <input type="hidden" value="3" name="genreq">
-                                    <a style="padding:8px;" href="javascript: submitform()">Classics</a>
-                                </form>
-                            </li>
-                            <li>
-                                <form class="bghover" id="genreForm" action="changeGenre.php" method="post">
-                                    <input type="hidden" value="4" name="genreq">
-                                    <a style="padding:8px;" href="javascript: submitform()">Novel</a>
-                                </form>
-                            </li>
-
-                            </ul>
-                            </li>
-                            <?php if($_SESSION['username'] && $_SESSION['usertype'] == "customer"): ?>
-                                <li><a href="orders.php">My Orders</a></li>
-                                <li><a href="cart.php">Cart</a></li>
-                            <?php elseif($_SESSION['username'] && $_SESSION['usertype'] == "seller"): ?>
-                                <li><a href="shelf.php">My Shelf</a></li>
-                            <?php else: ?>
-                                <li ><a href="#ex1" rel="modal:open"> My Shelf/My Orders</a>
-                            <?php endif; ?>
-                            <?php if ($_SESSION['usertype']) : ?>
-                                <li><a href="profile.php"> Profile</a></li>
-                            <?php else: ?>
-                                <li><a href="#ex1" rel="modal:open">Cart</a></li>
-                                <li><a href="#ex1" rel="modal:open"> Profile</a></li>   
-                            <?php endif; ?> 
-
-                            
-                        </ul>
-                        <form class="navbar-form navbar-left" action="booksearch.php" method="get">
-                            <div class="form-group">
-                              <input type="text" class="form-control" name="searchquery" placeholder="Search a book!">
-                            </div>
-                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </form>
-                            
-                        <ul class="nav navbar-nav navbar-right">
-                            <?php if ($_SESSION['username'] && $_SESSION['usertype'] ): ?>
-                                <li><a > <?php echo "Hi, ". $_SESSION["username"]. "!"; ?></a></li>
-                                <li ><a  href="logout.php"> Logout</a>
-                                </li> 
-                            <?php else: ?>
-                                <li ><a href="#ex1" rel="modal:open"> Login</a>
-                                </li>   
-                            <?php endif; ?>                            
-                            <li ><a></a>
-                            </li>
-                        </ul>
-                    </span>
-                </div>
-            </nav>
-        </div>
-        <!-- navbar styling ends here -->
-        <!--Modal Content-->
-        <div class="modal login_cont" id="ex1" style="display:none;">
-	            <div class="form">
-                <h1 style="margin-top:0px">Login</h1>
-                <form id="myForm" role="form" action="home.php" method="post" enctype="multipart/form-data">
-                    <p style="font-size:16px; text-align: left; margin-left:27px; margin-bottom:0px;"><br>Username </p>
-                    <input class="namebox" type="text" id="email" name="username" value="adminc2">
-                    <p style="font-size:16px; text-align: left; margin-left:27px; margin-bottom:0px;"><br>Password </p>
-                    <input class="passbox" type="password" id="pwd" name="password" value="adminc2">
-                    <br><br>
-                    <p style="text-align:start">Login as:&nbsp;
-                        <label>
-                            <input type="radio" name="isSeller" value="true" />&nbsp;Seller&nbsp;
-                        </label>&nbsp;&nbsp;
-                        <label>
-                            <input type="radio" name="isSeller" value="false" />&nbsp;Customer&nbsp;
-                        </label>
-                    </p>
-                    <br>
-                    <input type="submit" value="Sign In!" class="loginbtn"><br>
-                </form>
-            </div>
-         </div>
          
         <div style="background-color: rgb(0, 0, 0); color:rgb(0, 0, 0)">
             
@@ -504,6 +331,8 @@ if(isset($_POST['username'])){
                     <script type="text/javascript">jssor_1_slider_init();</script>
                     <!-- #endregion Jssor Slider End -->
                 <?php endif ?>
+    <?php require($DOCUMENT_ROOT . "carousel.php"); ?>
+
 <!-- carousel end -->
 
 
